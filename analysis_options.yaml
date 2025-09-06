@@ -69,6 +69,9 @@ linter:
     one_member_abstracts: false # Разрешать абстрактные классы с одним методом
     only_throw_errors: true # Выбрасывать только объекты Error
     parameter_assignments: true # Запрещать присваивание значений параметрам
+    prefer_const_constructors: true
+    prefer_const_declarations: true
+    prefer_const_literals_to_create_immutables: true
     prefer_asserts_with_message: true # Использовать сообщения с assert
     prefer_constructors_over_static_methods: true # Предпочитать конструкторы статическим методам
     prefer_final_in_for_each: true # Использовать final в for-each циклах

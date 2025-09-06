@@ -62,13 +62,13 @@ class ErrorScreen extends StatelessWidget {
       home: Scaffold(
         body: SafeArea(
           child: ScrollConfiguration(
-            behavior: NoGlowClampingBehavior(),
+            behavior: const NoGlowClampingBehavior(),
             child: Center(
               child: ListView(
                 padding: const EdgeInsets.all(16),
                 shrinkWrap: true,
                 children: [
-                  _HeadlinePanel(
+                  const _HeadlinePanel(
                     titleEn:
                         'Something went wrong. Please try to reload the application.',
                     titleRu:
@@ -273,11 +273,11 @@ class _CollapsiblePanelState extends State<_CollapsiblePanel>
         color: const Color(0xFFFFFFFF),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: const Color(0xFFE0E0E0)),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
-            color: const Color(0x14000000),
+            color: Color(0x14000000),
             blurRadius: 10,
-            offset: const Offset(0, 4),
+            offset: Offset(0, 4),
           ),
         ],
       ),

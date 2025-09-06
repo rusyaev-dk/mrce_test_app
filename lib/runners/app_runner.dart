@@ -121,7 +121,7 @@ class AppRunner {
     required TimerRunner timerRunner,
   }) async {
     // TODO: remove the delay
-    await Future.delayed(Duration(milliseconds: 1500));
+    await Future.delayed(const Duration(milliseconds: 1500));
     logger.log('Build type: ${env.name}');
 
     final dio = Dio();
@@ -139,7 +139,7 @@ class AppRunner {
     }
 
     final sharedPrefs = await SharedPreferences.getInstance();
-    final flutterSecureStorage = FlutterSecureStorage();
+    const flutterSecureStorage = FlutterSecureStorage();
 
     final secureStorage = SecureStorage(secureStorage: flutterSecureStorage);
     final sharedPrefsStorage = SharedPrefsStorage(

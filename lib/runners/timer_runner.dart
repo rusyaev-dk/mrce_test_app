@@ -1,41 +1,37 @@
 import 'package:flutter_app_template/core/utils/utils.dart';
 
-/// {@template TimerRunner}
-/// Класс для подсчета времени запуска приложения
-/// {@endtemplate}
+/// A simple stopwatch helper to measure app startup time.
 class TimerRunner {
-  /// {@macro TimerRunner}
   TimerRunner({required ILogger logger}) : _logger = logger {
     _stopwatch.start();
   }
 
   final ILogger _logger;
 
-  /// Секундомер для подсчета времени инициализации
+  /// Stopwatch used to measure initialization duration.
   final _stopwatch = Stopwatch();
 
-  /// Метод для остановки секундомера и вывода времени
-  /// полной инициализации приложения
+  /// Stops the stopwatch and logs the total initialization time.
   void stop() {
     _stopwatch.stop();
     _logger.log(
-      'Время инициализации приложения: ${_stopwatch.elapsedMilliseconds} мс',
+      'Application initialization time: ${_stopwatch.elapsedMilliseconds} ms',
     );
   }
 
-  /// Метод для обработки прогресса инициализации зависимостей
+  /// Logs a progress checkpoint for dependency initialization.
   void logOnProgress(String name) {
     _logger.log(
-      '$name успешная инициализация, прогресс: ${_stopwatch.elapsedMilliseconds} мс',
+      '$name successful initialization, progress: ${_stopwatch.elapsedMilliseconds} ms',
     );
   }
 
-  /// Метод для обработки прогресса инициализации зависимостей
+  /// Logs a completion message for a specific initialization stage.
   void logOnComplete(String message) {
-    _logger.log('$message, прогресс: ${_stopwatch.elapsedMilliseconds} мс');
+    _logger.log('$message, progress: ${_stopwatch.elapsedMilliseconds} ms');
   }
 
-  /// Метод для обработки прогресса инициализации зависимостей
+  /// Logs an error that occurred during initialization.
   void logOnError(String message, Object error, [StackTrace? stackTrace]) {
     _logger.error(error, stackTrace);
   }

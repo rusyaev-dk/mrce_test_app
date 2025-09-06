@@ -1,29 +1,30 @@
 part of 'app_runner.dart';
 
-/// Метод инициализации обработчиков ошибок
-void _initErrorHandlers(ILogger logger) {
-  // Обработка ошибок в приложении
+/// Initializes global error handlers.
+void _initErrorHandlers(ILogger logger, AppEnv env) {
+  // Handle Flutter framework errors.
   FlutterError.onError = (details) {
-    _showErrorScreen(details.exception, details.stack);
+    _showErrorScreen(details.exception, env, details.stack);
     logger.error(
       'FlutterError.onError: ${details.exceptionAsString()} ${details.exception}',
       details.stack,
     );
   };
-  // Обработка асинхронных ошибок в приложении
+  // Handle uncaught async errors at the platform level.
   PlatformDispatcher.instance.onError = (error, stack) {
-    _showErrorScreen(error, stack);
+    _showErrorScreen(error, env, stack);
     logger.error('PlatformDispatcher.instance.onError $error', stack);
     return true;
   };
 }
 
-/// Метод для показа экрана ошибки
-void _showErrorScreen(Object error, StackTrace? stackTrace) {
+/// Pushes the error screen on top of the current navigator.
+void _showErrorScreen(Object error, AppEnv env, StackTrace? stackTrace) {
   WidgetsBinding.instance.addPostFrameCallback((_) {
     AppRouter.rootNavigatorKey.currentState?.push(
       MaterialPageRoute(
-        builder: (_) => ErrorScreen(error: error, stackTrace: stackTrace),
+        builder: (_) =>
+            ErrorScreen(error: error, stackTrace: stackTrace, env: env),
       ),
     );
   });

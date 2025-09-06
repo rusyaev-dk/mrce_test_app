@@ -1,11 +1,15 @@
 enum AppEnv {
-  /// Тестовое окружение (моковое)
-  dev,
+  /// Dev (mock environment)
+  dev('dev.env'),
 
-  /// Стейдж окружение (тестовое окружение, которое имеет возможность
-  /// как обращаться в сеть, так и использовать моковые данные)
-  stage,
+  /// Stage (hybrid: network + mocks)
+  stage('stage.env'),
 
-  /// Продакшен окружение
-  prod,
+  /// Production
+  prod('prod.env');
+
+  const AppEnv(this.fileName);
+
+  /// Corresponding filename for environment configuration.
+  final String fileName;
 }

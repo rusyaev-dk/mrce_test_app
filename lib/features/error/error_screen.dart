@@ -75,31 +75,32 @@ class ErrorScreen extends StatelessWidget {
                         'Что-то пошло не так. Пожалуйста, попробуйте перезагрузить приложение.',
                   ),
                   const SizedBox(height: 100),
-                  Center(
-                    child: ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.grey,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 12,
+                  if (onRetry != null)
+                    Center(
+                      child: ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.grey,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 12,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
                         ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      onPressed: onRetry,
-                      icon: const Icon(Icons.refresh, size: 24),
-                      label: const Text(
-                        'Reload app / Перезагрузить приложение',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
+                        onPressed: onRetry,
+                        icon: const Icon(Icons.refresh, size: 24),
+                        label: const Text(
+                          'Перезагрузить приложение / Ilovani qayta ishga tushiring',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 20),
+                  if (onRetry != null) const SizedBox(height: 20),
                   _CollapsiblePanel(
                     title: 'Info',
                     leading: const Icon(Icons.info_outline, size: 22),

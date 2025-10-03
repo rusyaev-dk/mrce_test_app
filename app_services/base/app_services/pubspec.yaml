@@ -14,7 +14,7 @@ dependencies:
   flutter_secure_storage: 9.2.4
 
   # Зависимости для сервиса незащищенного хранилища
-  shared_preferences: 2.3.5
+  shared_preferences: 2.5.3
 
   # для работы с путями в хранилища
   path_provider: 2.1.5

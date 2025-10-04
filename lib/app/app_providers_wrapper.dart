@@ -25,8 +25,8 @@ class AppProvidersWrapper extends StatelessWidget {
       ],
       child: MultiRepositoryProvider(
         providers: [
-          RepositoryProvider<ISettingsRepository>(
-            create: (context) => SettingsRepository(
+          RepositoryProvider<ISettingsRepo>(
+            create: (context) => SettingsRepo(
               storage: appScope.storageAggregator.sharedPrefsStorage,
             ),
           ),
@@ -35,7 +35,7 @@ class AppProvidersWrapper extends StatelessWidget {
           providers: [
             BlocProvider(
               create: (context) => SettingsCubit(
-                settingsRepository: RepositoryProvider.of<ISettingsRepository>(
+                settingsRepository: RepositoryProvider.of<ISettingsRepo>(
                   context,
                 ),
                 logger: appScope.logger,

@@ -1,0 +1,20 @@
+import 'package:flutter_app_template/core/core.dart';
+
+enum SettingsErrorType implements IMessageKey {
+  localeChangeFail('locale_change_fail'),
+  themeModeChangeFail('theme_mode_change_fail'),
+  restoreLocaleFail('restore_locale_fail'),
+  restoreThemeModeFail('restore_theme_mode_fail');
+
+  const SettingsErrorType(this.value);
+  final String value;
+
+  @override
+  String toString() => value;
+
+  factory SettingsErrorType.fromString(String value) =>
+      SettingsErrorType.values.firstWhere(
+        (e) => e.value == value,
+        orElse: () => throw ArgumentError('Unknown SettingsErrorType: $value'),
+      );
+}

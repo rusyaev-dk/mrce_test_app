@@ -21,5 +21,47 @@ class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ru';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{};
+  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "apply": MessageLookupByLibrary.simpleMessage("Применить"),
+    "back": MessageLookupByLibrary.simpleMessage("Назад"),
+    "cancel": MessageLookupByLibrary.simpleMessage("Отмена"),
+    "clear": MessageLookupByLibrary.simpleMessage("Очистить"),
+    "close": MessageLookupByLibrary.simpleMessage("Закрыть"),
+    "confirm": MessageLookupByLibrary.simpleMessage("Подтвердить"),
+    "delete": MessageLookupByLibrary.simpleMessage("Удалить"),
+    "edit": MessageLookupByLibrary.simpleMessage("Редактировать"),
+    "language": MessageLookupByLibrary.simpleMessage("Язык"),
+    "localeChangeError": MessageLookupByLibrary.simpleMessage(
+      "Не удалось сменить язык",
+    ),
+    "localeRestoreError": MessageLookupByLibrary.simpleMessage(
+      "Не удалось загрузить язык",
+    ),
+    "next": MessageLookupByLibrary.simpleMessage("Далее"),
+    "noInternetError": MessageLookupByLibrary.simpleMessage(
+      "Нет подключения к интернету",
+    ),
+    "ok": MessageLookupByLibrary.simpleMessage("ОК"),
+    "requestTimeoutError": MessageLookupByLibrary.simpleMessage(
+      "Истекло время ожидания запроса",
+    ),
+    "reset": MessageLookupByLibrary.simpleMessage("Сбросить"),
+    "save": MessageLookupByLibrary.simpleMessage("Сохранить"),
+    "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
+    "share": MessageLookupByLibrary.simpleMessage("Поделиться"),
+    "themeMode": MessageLookupByLibrary.simpleMessage("Тема"),
+    "themeModeChangeError": MessageLookupByLibrary.simpleMessage(
+      "Не удалось сменить тему",
+    ),
+    "themeModeDark": MessageLookupByLibrary.simpleMessage("Тёмная"),
+    "themeModeLight": MessageLookupByLibrary.simpleMessage("Светлая"),
+    "themeModeRestoreError": MessageLookupByLibrary.simpleMessage(
+      "Не удалось загрузить тему",
+    ),
+    "themeModeSystem": MessageLookupByLibrary.simpleMessage("Системная"),
+    "unauthorizedError": MessageLookupByLibrary.simpleMessage(
+      "Необходимо авторизоваться",
+    ),
+    "unknownError": MessageLookupByLibrary.simpleMessage("Неизвестная ошибка"),
+  };
 }

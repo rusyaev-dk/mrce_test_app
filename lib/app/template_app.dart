@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/app/app.dart';
+import 'package:flutter_app_template/core/core.dart';
 import 'package:flutter_app_template/di/di.dart';
 import 'package:flutter_app_template/features/error/error_screen.dart';
 import 'package:flutter_app_template/features/settings/presentation/presentation.dart';
@@ -84,20 +85,31 @@ class _App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SettingsCubit, SettingsState>(
-      builder: (context, state) {
+    return BlocSelector<SettingsCubit, SettingsState, (Locale, ThemeMode)>(
+      selector: (state) {
+        switch (state) {
+          case SettingsLoadedState():
+            return (state.locale, state.themeMode);
+          default:
+            return (const Locale('ru'), ThemeMode.system);
+        }
+      },
+      builder: (context, tuple) {
+        final (locale, themeMode) = tuple;
+
         return MaterialApp.router(
+          scrollBehavior: const NoGlowClampingBehavior(),
           localizationsDelegates: const [
             S.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
+          locale: locale,
           supportedLocales: const [Locale('ru'), Locale('uz')],
-          locale: state.locale,
           theme: AppThemeData.lightTheme,
           darkTheme: AppThemeData.darkTheme,
-          themeMode: ThemeMode.light,
+          themeMode: themeMode,
           debugShowCheckedModeBanner: false,
           routerConfig: router,
         );

@@ -1,1 +1,1 @@
-export 'settings_repository/settings_repository.dart';
+export 'settings_repo/settings_repo.dart';

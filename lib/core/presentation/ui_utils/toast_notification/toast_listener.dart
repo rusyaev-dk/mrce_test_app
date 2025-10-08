@@ -8,7 +8,7 @@ class ToastListener<B extends StateStreamable<S>, S, L extends S>
   const ToastListener({
     required B bloc,
     required AppMessage? Function(L) messageOf,
-    required Widget child,
+    Widget? child,
     IconData icon = Icons.error_outline,
     Color? backgroundColor,
     super.key,
@@ -25,13 +25,23 @@ class ToastListener<B extends StateStreamable<S>, S, L extends S>
   final AppMessage? Function(L) _messageOf;
 
   // Child subtree to render.
-  final Widget _child;
+  final Widget? _child;
 
   // Icon to show in toast.
   final IconData _icon;
 
   // Optional background color for toast. Fallbacks to Theme.colorScheme.error.
   final Color? _backgroundColor;
+
+  ToastListener<B, S, L> withChild(Widget child) {
+    return ToastListener<B, S, L>(
+      bloc: _bloc,
+      messageOf: _messageOf,
+      icon: _icon,
+      backgroundColor: _backgroundColor,
+      child: child,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,5 +71,26 @@ class ToastListener<B extends StateStreamable<S>, S, L extends S>
       },
       child: _child,
     );
+  }
+}
+
+class MultiToastListener extends StatelessWidget {
+  const MultiToastListener({
+    required this.listeners,
+    required this.child,
+    super.key,
+  });
+
+  final List<ToastListener<dynamic, dynamic, dynamic>> listeners;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    Widget composed = child;
+    for (final ToastListener<dynamic, dynamic, dynamic> listener
+        in listeners.reversed) {
+      composed = listener.withChild(composed);
+    }
+    return composed;
   }
 }

@@ -10,9 +10,13 @@ class RootScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ToastListener<SettingsCubit, SettingsState, SettingsLoadedState>(
-      bloc: context.read<SettingsCubit>(),
-      messageOf: (SettingsLoadedState state) => state.message,
+    return MultiToastListener(
+      listeners: [
+        ToastListener<SettingsCubit, SettingsState, SettingsLoadedState>(
+          bloc: context.read<SettingsCubit>(),
+          messageOf: (SettingsLoadedState state) => state.message,
+        ),
+      ],
       child: child,
     );
   }

@@ -5,7 +5,7 @@ import 'package:flutter_app_template/di/di.dart';
 import 'package:flutter_app_template/features/error/error_screen.dart';
 import 'package:flutter_app_template/features/settings/presentation/presentation.dart';
 import 'package:flutter_app_template/features/splash/splash_screen.dart';
-import 'package:flutter_app_template/l10n/generated/l10n.dart';
+import 'package:flutter_app_template/gen/gen.dart';
 import 'package:flutter_app_template/uikit/themes/app_theme_data.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

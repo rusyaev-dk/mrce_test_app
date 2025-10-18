@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/app/app.dart';
-import 'package:flutter_app_template/l10n/generated/l10n.dart';
+import 'package:flutter_app_template/gen/gen.dart';
 import 'package:flutter_app_template/uikit/uikit.dart';
 import 'package:provider/provider.dart';
 

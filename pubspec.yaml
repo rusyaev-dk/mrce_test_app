@@ -12,7 +12,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  bloc: 9.0.1
+  bloc: 9.1.0
   flutter_bloc: 9.1.1
   flutter_animate: 4.5.2
   bloc_concurrency: ^0.3.0
@@ -24,7 +24,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   lottie: 3.3.1
-  talker_flutter: 5.0.1
+  talker_flutter: 5.0.2
   talker_dio_logger: ^5.0.0
   talker_bloc_logger: ^5.0.0
   equatable: 2.0.7
@@ -33,7 +33,7 @@ dependencies:
   go_router: ^16.2.1
   shared_preferences: 2.5.3
   flutter_secure_storage: ^9.2.4
-  flutter_dotenv: 5.2.1 
+  flutter_dotenv: 6.0.0 
   ### основной сервис с интерфейсами
   
   i_app_services:
@@ -87,5 +87,5 @@ flutter_gen:
 flutter_intl:
   enabled: true
   arb_dir: lib/l10n # Optional. Sets the directory of your ARB resource files. Provided value should be a valid path on your system. Default: lib/l10n
-  output_dir: lib/l10n/generated # Optional. Sets the directory of generated localization files. Provided value should be a valid path on your system. Default: lib/generated
+  output_dir: lib/gen/l10n # Optional. Sets the directory of generated localization files. Provided value should be a valid path on your system. Default: lib/generated
   main_locale: ru

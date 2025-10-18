@@ -8,7 +8,7 @@ class SecureStorage implements IKeyValueStorage {
   final FlutterSecureStorage _secureStorage;
 
   @override
-  Future<bool> save({required String key, required Object value}) async {
+  Future<bool> save<T>({required String key, required T value}) async {
     if (value is String) {
       await _secureStorage.write(key: key, value: value);
       return true;

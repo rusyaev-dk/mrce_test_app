@@ -7,14 +7,15 @@ enum GlobalMessageType implements IMessageKey {
   unauthorized('unauthorized');
 
   const GlobalMessageType(this.value);
-  final String value;
-
-  @override
-  String toString() => value;
 
   factory GlobalMessageType.fromString(String value) =>
       GlobalMessageType.values.firstWhere(
         (e) => e.value == value,
         orElse: () => throw ArgumentError('Unknown GlobalMessageKey: $value'),
       );
+
+  final String value;
+
+  @override
+  String toString() => value;
 }

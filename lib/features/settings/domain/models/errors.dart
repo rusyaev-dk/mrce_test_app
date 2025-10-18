@@ -7,14 +7,15 @@ enum SettingsErrorType implements IMessageKey {
   restoreThemeModeFail('restore_theme_mode_fail');
 
   const SettingsErrorType(this.value);
-  final String value;
-
-  @override
-  String toString() => value;
 
   factory SettingsErrorType.fromString(String value) =>
       SettingsErrorType.values.firstWhere(
         (e) => e.value == value,
         orElse: () => throw ArgumentError('Unknown SettingsErrorType: $value'),
       );
+
+  final String value;
+
+  @override
+  String toString() => value;
 }

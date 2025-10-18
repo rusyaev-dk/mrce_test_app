@@ -8,7 +8,7 @@ class SharedPrefsStorage implements IKeyValueStorage {
   final SharedPreferences _sharedPreferences;
 
   @override
-  Future<bool> save({required String key, required Object value}) async {
+  Future<bool> save<T>({required String key, required T value}) async {
     if (value is String) {
       return await _sharedPreferences.setString(key, value);
     } else if (value is int) {

@@ -32,5 +32,6 @@ enum AppTextStyle {
 
   final TextStyle value;
 
+  // ignore: sort_constructors_first
   const AppTextStyle(this.value);
 }

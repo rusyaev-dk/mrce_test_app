@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/core/core.dart';
 import 'package:flutter_app_template/features/settings/domain/domain.dart';
-import 'package:flutter_app_template/l10n/generated/l10n.dart';
+import 'package:flutter_app_template/gen/gen.dart';
 
 class AppMessageEnumTranslator {
   const AppMessageEnumTranslator._();

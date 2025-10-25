@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_template/app/app.dart';
 import 'package:flutter_app_template/core/data/data.dart';
-import 'package:flutter_app_template/core/navigation/router.dart';
+import 'package:flutter_app_template/core/presentation/navigation/router.dart';
 import 'package:flutter_app_template/core/utils/utils.dart';
 import 'package:flutter_app_template/di/di.dart';
 import 'package:flutter_app_template/features/error/error_screen.dart';
@@ -56,14 +56,8 @@ class AppRunner {
       await _initApp();
       _initErrorHandlers(logger, env);
 
-      router = AppRouter.createRouter(
-        includePrefixMatches: true,
-        navigatorObservers: [TalkerRouteObserver(talker)],
-      );
-
       runApp(
         TemplateApp(
-          router: router,
           initDependencies: () {
             return _initDependencies(
               logger: logger,
@@ -169,6 +163,7 @@ class AppRunner {
       flutterSecureStorage: flutterSecureStorage,
       storageAggregator: storageAggregator,
       talker: talker,
+      routeObserver: TalkerRouteObserver(talker),
       dio: dio,
       logger: logger,
     );

@@ -16,6 +16,7 @@ final class AppScope {
     required this.storageAggregator,
     required this.dio,
     required this.talker,
+    required this.routeObserver,
     required this.logger,
   });
 
@@ -27,5 +28,6 @@ final class AppScope {
   final StorageAggregator storageAggregator;
   final Dio dio;
   final Talker talker;
+  final TalkerRouteObserver routeObserver;
   final ILogger logger;
 }

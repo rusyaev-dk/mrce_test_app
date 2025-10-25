@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_template/features/auth/presentation/presentation.dart';
 import 'package:flutter_app_template/features/home/presentation/presentation.dart';
 import 'package:flutter_app_template/features/root/root_screen.dart';
 import 'package:flutter_app_template/features/splash/splash_screen.dart';
@@ -12,14 +13,52 @@ class AppRouter {
   static GoRouter createRouter({
     required bool includePrefixMatches,
     required List<NavigatorObserver> navigatorObservers,
+    required AuthRouterListenable authListenable,
   }) {
     return GoRouter(
-      initialLocation: '/home',
+      initialLocation: '/',
       navigatorKey: rootNavigatorKey,
-
       debugLogDiagnostics: true,
+      refreshListenable: authListenable,
       observers: navigatorObservers,
+      redirect: (context, state) {
+        // All comments in English.
+        final AuthFlowStatus status = authListenable.status;
+        final String location = state.uri.path;
+
+        // Keep Splash while loading.
+        if (status == AuthFlowStatus.loading) {
+          return location == '/' ? null : '/';
+        }
+
+        // Route decisions after loading is done.
+        switch (status) {
+          case AuthFlowStatus.authenticated:
+            // Send any non-home location to home, except nested home children.
+            if (!location.startsWith('/home')) {
+              return '/home';
+            }
+            return null;
+
+          case AuthFlowStatus.unauthenticated:
+            // Force to registration unless already there.
+            if (location != '/registration') {
+              return '/registration';
+            }
+            return null;
+
+          case AuthFlowStatus.unknown:
+          case AuthFlowStatus.loading:
+            // handled above
+            return null;
+        }
+      },
       routes: [
+        GoRoute(
+          path: '/',
+          name: 'splash',
+          builder: (context, _) => const SplashScreen(),
+        ),
         ShellRoute(
           pageBuilder: buildShellPageTransition((
             BuildContext context,
@@ -28,24 +67,17 @@ class AppRouter {
           ) {
             return RootScreen(child: child);
           }),
-          routes: _routes,
+          routes: [
+            GoRoute(
+              path: '/home',
+              name: 'home',
+              builder: (context, _) => const HomeScreen(),
+            ),
+          ],
         ),
       ],
     );
   }
-
-  static final List<GoRoute> _routes = [
-    GoRoute(
-      path: '/splash',
-      name: 'splash',
-      builder: (context, _) => const SplashScreen(),
-    ),
-    GoRoute(
-      path: '/home',
-      name: 'home',
-      builder: (context, _) => const HomeScreen(),
-    ),
-  ];
 }
 
 Page<dynamic> Function(BuildContext, GoRouterState) buildPageTransition(

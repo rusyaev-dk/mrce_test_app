@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_template/app/app.dart';
 import 'package:flutter_app_template/core/core.dart';
 import 'package:flutter_app_template/di/di.dart';
+import 'package:flutter_app_template/features/auth/presentation/presentation.dart';
 import 'package:flutter_app_template/features/error/error_screen.dart';
 import 'package:flutter_app_template/features/settings/presentation/presentation.dart';
 import 'package:flutter_app_template/features/splash/splash_screen.dart';
@@ -12,13 +13,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 class TemplateApp extends StatefulWidget {
-  const TemplateApp({
-    required this.router,
-    required this.initDependencies,
-    super.key,
-  });
+  const TemplateApp({required this.initDependencies, super.key});
 
-  final GoRouter router;
   final Future<AppScope> Function() initDependencies;
 
   @override
@@ -43,7 +39,6 @@ class _TemplateAppState extends State<TemplateApp> {
           case ConnectionState.none:
           case ConnectionState.waiting:
           case ConnectionState.active:
-            // Пока инициализация показываем Splash
             return const SplashScreen();
           case ConnectionState.done:
             if (snapshot.hasError) {
@@ -64,7 +59,18 @@ class _TemplateAppState extends State<TemplateApp> {
             }
             return AppProvidersWrapper(
               appScope: appScope,
-              child: _App(router: widget.router),
+              child: Builder(
+                builder: (context) {
+                  final router = AppRouter.createRouter(
+                    includePrefixMatches: true,
+                    navigatorObservers: [appScope.routeObserver],
+                    authListenable: AuthRouterListenable(
+                      authCubit: context.read<AuthCubit>(),
+                    ),
+                  );
+                  return _App(router: router);
+                },
+              ),
             );
         }
       },

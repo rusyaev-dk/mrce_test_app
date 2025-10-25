@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/core/utils/utils.dart';
 import 'package:flutter_app_template/di/di.dart';
+import 'package:flutter_app_template/features/auth/domain/domain.dart';
+import 'package:flutter_app_template/features/auth/presentation/presentation.dart';
 import 'package:flutter_app_template/features/settings/data/data.dart';
 import 'package:flutter_app_template/features/settings/presentation/presentation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,20 +33,60 @@ class AppProvidersWrapper extends StatelessWidget {
             ),
           ),
         ],
-        child: MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => SettingsCubit(
-                settingsRepository: RepositoryProvider.of<ISettingsRepo>(
-                  context,
-                ),
-                logger: appScope.logger,
-              ),
-            ),
-          ],
-          child: child,
+        child: _InteractorProviders(
+          appScope: appScope,
+          child: _BlocProviders(appScope: appScope, child: child),
         ),
       ),
+    );
+  }
+}
+
+class _InteractorProviders extends StatelessWidget {
+  const _InteractorProviders({required this.appScope, required this.child});
+
+  final AppScope appScope;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<AuthInteractor>(
+          lazy: false,
+          create: (context) => AuthInteractor(),
+        ),
+      ],
+      child: child,
+    );
+  }
+}
+
+class _BlocProviders extends StatelessWidget {
+  const _BlocProviders({required this.appScope, required this.child});
+
+  final AppScope appScope;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AuthCubit(
+            authInteractor: context.read<AuthInteractor>(),
+            logger: appScope.logger,
+          ),
+          lazy: false,
+        ),
+        BlocProvider(
+          create: (context) => SettingsCubit(
+            settingsRepository: context.read<ISettingsRepo>(),
+            logger: appScope.logger,
+          ),
+        ),
+      ],
+      child: child,
     );
   }
 }

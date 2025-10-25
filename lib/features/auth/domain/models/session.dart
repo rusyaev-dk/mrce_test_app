@@ -17,6 +17,7 @@ final class Session extends Equatable {
     'user_id': userId,
   };
 
+  // ignore: sort_constructors_first
   factory Session.fromJson(Map<String, dynamic> json) {
     final String? sessionToken = json['session_token'];
     final String? refreshToken = json['refresh_token'];

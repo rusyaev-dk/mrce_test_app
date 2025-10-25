@@ -12,6 +12,7 @@ enum SessionErrorType implements IMessageKey {
   @override
   String toString() => value;
 
+  // ignore: sort_constructors_first
   factory SessionErrorType.fromString(String value) =>
       SessionErrorType.values.firstWhere(
         (e) => e.value == value,

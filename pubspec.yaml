@@ -34,8 +34,8 @@ dependencies:
   shared_preferences: 2.5.3
   flutter_secure_storage: ^9.2.4
   flutter_dotenv: 6.0.0 
-  ### основной сервис с интерфейсами
   
+  ### основной сервис с интерфейсами
   i_app_services:
     path: ./app_services/i_app_services
 

@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 
 class User extends Equatable {
-  
   const User({
     required this.userId,
     required this.fullName,
@@ -20,7 +19,8 @@ class User extends Equatable {
   final DateTime updatedAt;
   final bool isAdmin;
 
-factory User.fromJson(Map<String, dynamic> json) {
+  // ignore: sort_constructors_first
+  factory User.fromJson(Map<String, dynamic> json) {
     return User(
       userId: json['user_id'] as String,
       fullName: json['full_name'] as String,

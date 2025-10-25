@@ -33,19 +33,15 @@ class AppProvidersWrapper extends StatelessWidget {
             ),
           ),
         ],
-        child: _InteractorProviders(
-          appScope: appScope,
-          child: _BlocProviders(appScope: appScope, child: child),
-        ),
+        child: _InteractorProviders(child: _BlocProviders(child: child)),
       ),
     );
   }
 }
 
 class _InteractorProviders extends StatelessWidget {
-  const _InteractorProviders({required this.appScope, required this.child});
+  const _InteractorProviders({required this.child});
 
-  final AppScope appScope;
   final Widget child;
 
   @override
@@ -63,13 +59,14 @@ class _InteractorProviders extends StatelessWidget {
 }
 
 class _BlocProviders extends StatelessWidget {
-  const _BlocProviders({required this.appScope, required this.child});
+  const _BlocProviders({required this.child});
 
-  final AppScope appScope;
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
+    final appScope = context.read<AppScope>();
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_template/core/data/data.dart';
 import 'package:flutter_app_template/core/utils/utils.dart';
 import 'package:flutter_app_template/di/di.dart';
+import 'package:flutter_app_template/features/auth/data/data.dart';
 import 'package:flutter_app_template/features/auth/domain/domain.dart';
 import 'package:flutter_app_template/features/auth/presentation/presentation.dart';
 import 'package:flutter_app_template/features/settings/data/data.dart';
@@ -24,6 +26,10 @@ class AppProvidersWrapper extends StatelessWidget {
       providers: [
         Provider<AppScope>(create: (context) => appScope),
         Provider<ILogger>(create: (context) => appScope.logger),
+        Provider<IHttpClient>(
+          create: (context) =>
+              DioHttpClient(dio: appScope.dio, apiConfig: appScope.apiConfig),
+        ),
       ],
       child: MultiRepositoryProvider(
         providers: [
@@ -31,6 +37,17 @@ class AppProvidersWrapper extends StatelessWidget {
             create: (context) => SettingsRepo(
               storage: appScope.storageAggregator.sharedPrefsStorage,
             ),
+          ),
+          RepositoryProvider<ISessionCacheRepo>(
+            create: (context) {
+              final cacheRepo = SessionCacheRepo(
+                storage: appScope.storageAggregator.secureStorage,
+              );
+              appScope.dio.interceptors.add(
+                JWTInterceptor(sessionCacheRepo: cacheRepo),
+              );
+              return cacheRepo;
+            },
           ),
         ],
         child: _InteractorProviders(child: _BlocProviders(child: child)),

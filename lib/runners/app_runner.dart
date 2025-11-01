@@ -145,15 +145,6 @@ class AppRunner {
     );
 
     final apiConfig = ApiConfig(env);
-    final httpClient = DioHttpClient(dio: dio, apiConfig: apiConfig);
-    final authTokenProvider = AuthTokenProvider(
-      httpClient: httpClient,
-      tokenStorage: storageAggregator.secureStorage,
-    );
-
-    dio.interceptors.add(
-      JwtRefreshInterceptor(authTokenProvider: authTokenProvider),
-    );
 
     return AppScope(
       env: env,

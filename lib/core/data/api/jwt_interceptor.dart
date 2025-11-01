@@ -1,36 +1,20 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_app_template/core/data/api/api.dart';
+import 'package:flutter_app_template/features/auth/data/data.dart';
 
-class JwtRefreshInterceptor extends Interceptor {
-  JwtRefreshInterceptor({required IAuthTokenProvider authTokenProvider})
-    : _authProvider = authTokenProvider;
 
-  final IAuthTokenProvider _authProvider;
+class JWTInterceptor extends Interceptor {
+  JWTInterceptor({required ISessionCacheRepo sessionCacheRepo})
+    : _sessionCacheRepo = sessionCacheRepo;
+
+  final ISessionCacheRepo _sessionCacheRepo;
 
   @override
   void onRequest(
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    final token = await _authProvider.getToken();
-    if (token != null) {
-      options.headers['Authorization'] = 'Bearer $token';
-    }
+    final session = await _sessionCacheRepo.loadSession();
+    options.headers['Authorization'] = 'Bearer ${session.sessionToken}';
     handler.next(options);
-  }
-
-  @override
-  void onError(DioException err, ErrorInterceptorHandler handler) async {
-    if (err.response?.statusCode == 401) {
-      final refreshed = await _authProvider.refreshToken();
-      if (refreshed) {
-        final retryOptions = err.requestOptions;
-        final newToken = await _authProvider.getToken();
-        retryOptions.headers['Authorization'] = 'Bearer $newToken';
-        final response = await Dio().fetch(retryOptions);
-        return handler.resolve(response);
-      }
-    }
-    return handler.next(err);
   }
 }

@@ -10,7 +10,7 @@ final class AuthCubit extends Cubit<AuthState> {
   AuthCubit({required AuthInteractor authInteractor, required ILogger logger})
     : _authInteractor = authInteractor,
       _logger = logger,
-      super(const AuthInitialState(message: null)) {
+      super(const AuthInitialState()) {
     _restoreOrFetch();
   }
 
@@ -20,33 +20,34 @@ final class AuthCubit extends Cubit<AuthState> {
   Future<void> _restoreOrFetch() async {
     try {
       if (state is! AuthLoadingState) {
-        emit(const AuthLoadingState(message: null));
+        emit(const AuthLoadingState());
       }
       _logger.info("Trying to login...");
 
       // TODO: remove the delay
       await Future.delayed(const Duration(seconds: 7));
 
-      final (Session, User) bundle = await _authInteractor.login();
+      final (Session, User) bundle = await _authInteractor.logIn();
 
       emit(AuthAuthenticatedState(user: bundle.$2));
     } catch (e, st) {
       emit(
         AuthFailureState(
-          failure: e,
-          message: AppMessage(key: SessionErrorType.loadFail),
+          failure: e is AppException
+              ? e
+              : AppUnknownException(message: e.toString(), stackTrace: st),
         ),
       );
       _logger.exception(e, st);
     }
   }
 
-  Future<void> signOut() async {
+  Future<void> logOut() async {
     try {
-      await _authInteractor.signOut();
-      emit(const AuthUnauthenticatedState(message: null));
+      await _authInteractor.logOut();
+      emit(const AuthUnauthenticatedState());
     } catch (e, st) {
-      emit(const AuthUnauthenticatedState(message: null));
+      emit(const AuthUnauthenticatedState());
       _logger.exception(e, st);
     }
   }

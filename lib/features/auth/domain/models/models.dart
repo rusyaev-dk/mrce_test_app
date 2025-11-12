@@ -1,4 +1,4 @@
 export 'auth_payload.dart';
-export 'errors.dart';
+export 'exceptions.dart';
 export 'session.dart';
 export 'tg_auth_payload.dart';

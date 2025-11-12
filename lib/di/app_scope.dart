@@ -20,7 +20,7 @@ final class AppScope {
     required this.logger,
   });
 
-  final AppEnv env;
+  final AppEnvType env;
   final AppConfig appConfig;
   final ApiConfig apiConfig;
   final SharedPreferences sharedPreferences;

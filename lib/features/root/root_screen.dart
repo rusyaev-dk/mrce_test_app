@@ -12,9 +12,10 @@ class RootScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiToastListener(
       listeners: [
-        ToastListener<SettingsCubit, SettingsState, SettingsLoadedState>(
+        ToastListener<SettingsCubit, SettingsState, SettingsState>(
           bloc: context.read<SettingsCubit>(),
-          messageOf: (SettingsLoadedState state) => state.message,
+          messageOf: (context, SettingsState state) =>
+              AppExceptionsTranslator.translate(context, state.failure),
         ),
       ],
       child: child,

@@ -43,9 +43,10 @@ class AppProvidersWrapper extends StatelessWidget {
               final cacheRepo = SessionCacheRepo(
                 storage: appScope.storageAggregator.secureStorage,
               );
-              appScope.dio.interceptors.add(
-                JWTInterceptor(sessionCacheRepo: cacheRepo),
-              );
+              // TODO: uncomment if needed
+              // appScope.dio.interceptors.add(
+              //   JWTInterceptor(sessionCacheRepo: cacheRepo),
+              // );
               return cacheRepo;
             },
           ),

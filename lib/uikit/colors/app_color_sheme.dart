@@ -1,3 +1,5 @@
+// ignore_for_file: sort_constructors_first
+
 import 'package:flutter/material.dart';
 
 @immutable
@@ -37,15 +39,44 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
     required this.onInverseSurface,
     required this.inversePrimary,
     required this.surfaceTint,
-    required this.shimmer,
-    required this.activatedFilterButtonColor,
-    required this.inActivatedFilterButtonColor,
-    required this.activatedThemeButtonColor,
-    required this.inActivatedThemeButtonColor,
-    required this.sectionBackgroundColor,
-    required this.settingsBackgroundColor,
     required this.approval,
   });
+
+  final Color primary;
+  final Color onPrimary;
+  final Color primaryContainer;
+  final Color onPrimaryContainer;
+  final Color secondary;
+  final Color onSecondary;
+  final Color secondaryContainer;
+  final Color onSecondaryContainer;
+  final Color tertiary;
+  final Color onTertiary;
+  final Color tertiaryContainer;
+  final Color onTertiaryContainer;
+  final Color error;
+  final Color onError;
+  final Color errorContainer;
+  final Color onErrorContainer;
+  final Color surface;
+  final Color onSurface;
+  final Color surfaceDim;
+  final Color surfaceBright;
+  final Color surfaceContainerLowest;
+  final Color surfaceContainerLow;
+  final Color surfaceContainer;
+  final Color surfaceContainerHigh;
+  final Color surfaceContainerHighest;
+  final Color onSurfaceVariant;
+  final Color outline;
+  final Color outlineVariant;
+  final Color shadow;
+  final Color scrim;
+  final Color inverseSurface;
+  final Color onInverseSurface;
+  final Color inversePrimary;
+  final Color surfaceTint;
+  final Color approval;
 
   const AppColorScheme.light()
     : primary = const Color.fromARGB(255, 46, 133, 233),
@@ -82,13 +113,6 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
       onInverseSurface = const Color(0xFFF1F1F1),
       inversePrimary = const Color(0xFFAEDFFF),
       surfaceTint = const Color(0xFF1565C0),
-      shimmer = const Color(0xFFD1D1D1),
-      activatedFilterButtonColor = const Color(0xFFb2b2b2),
-      inActivatedFilterButtonColor = const Color(0xFFe0e0e2),
-      activatedThemeButtonColor = const Color(0xFFFFFFFF),
-      inActivatedThemeButtonColor = const Color(0xFFDADADA),
-      sectionBackgroundColor = const Color(0xFFFFFFFF),
-      settingsBackgroundColor = const Color.fromARGB(255, 242, 242, 242),
       approval = Colors.green;
 
   const AppColorScheme.dark()
@@ -126,56 +150,7 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
       onInverseSurface = const Color(0xFF2A2A2A),
       inversePrimary = const Color(0xFF445B6B),
       surfaceTint = const Color(0xFF90CAF9),
-      shimmer = const Color(0xFFD1D1D1),
-      activatedFilterButtonColor = const Color(0xFFb2b2b2),
-      inActivatedFilterButtonColor = const Color(0xFFe0e0e2),
-      activatedThemeButtonColor = const Color(0xFFFFFFFF),
-      inActivatedThemeButtonColor = const Color(0xFFDADADA),
-      sectionBackgroundColor = const Color(0xFFFFFFFF),
-      settingsBackgroundColor = const Color.fromARGB(255, 242, 242, 242),
       approval = Colors.green;
-  final Color primary;
-  final Color onPrimary;
-  final Color primaryContainer;
-  final Color onPrimaryContainer;
-  final Color secondary;
-  final Color onSecondary;
-  final Color secondaryContainer;
-  final Color onSecondaryContainer;
-  final Color tertiary;
-  final Color onTertiary;
-  final Color tertiaryContainer;
-  final Color onTertiaryContainer;
-  final Color error;
-  final Color onError;
-  final Color errorContainer;
-  final Color onErrorContainer;
-  final Color surface;
-  final Color onSurface;
-  final Color surfaceDim;
-  final Color surfaceBright;
-  final Color surfaceContainerLowest;
-  final Color surfaceContainerLow;
-  final Color surfaceContainer;
-  final Color surfaceContainerHigh;
-  final Color surfaceContainerHighest;
-  final Color onSurfaceVariant;
-  final Color outline;
-  final Color outlineVariant;
-  final Color shadow;
-  final Color scrim;
-  final Color inverseSurface;
-  final Color onInverseSurface;
-  final Color inversePrimary;
-  final Color surfaceTint;
-  final Color shimmer;
-  final Color activatedFilterButtonColor;
-  final Color inActivatedFilterButtonColor;
-  final Color activatedThemeButtonColor;
-  final Color inActivatedThemeButtonColor;
-  final Color sectionBackgroundColor;
-  final Color settingsBackgroundColor;
-  final Color approval;
 
   @override
   AppColorScheme copyWith({
@@ -213,13 +188,6 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
     Color? onInverseSurface,
     Color? inversePrimary,
     Color? surfaceTint,
-    Color? shimmer,
-    Color? activatedFilterButtonColor,
-    Color? inActivatedFilterButtonColor,
-    Color? activatedThemeButtonColor,
-    Color? inActivatedThemeButtonColor,
-    Color? sectionBackgroundColor,
-    Color? settingsBackgroundColor,
     Color? approval,
   }) {
     return AppColorScheme._(
@@ -259,19 +227,6 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
       onInverseSurface: onInverseSurface ?? this.onInverseSurface,
       inversePrimary: inversePrimary ?? this.inversePrimary,
       surfaceTint: surfaceTint ?? this.surfaceTint,
-      shimmer: shimmer ?? this.shimmer,
-      activatedFilterButtonColor:
-          activatedFilterButtonColor ?? this.activatedFilterButtonColor,
-      inActivatedFilterButtonColor:
-          inActivatedFilterButtonColor ?? this.inActivatedFilterButtonColor,
-      activatedThemeButtonColor:
-          activatedThemeButtonColor ?? this.activatedThemeButtonColor,
-      inActivatedThemeButtonColor:
-          inActivatedThemeButtonColor ?? this.inActivatedThemeButtonColor,
-      sectionBackgroundColor:
-          sectionBackgroundColor ?? this.sectionBackgroundColor,
-      settingsBackgroundColor:
-          settingsBackgroundColor ?? this.settingsBackgroundColor,
       approval: approval ?? this.approval,
     );
   }
@@ -376,37 +331,6 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
       )!,
       inversePrimary: Color.lerp(inversePrimary, other.inversePrimary, t)!,
       surfaceTint: Color.lerp(surfaceTint, other.surfaceTint, t)!,
-      shimmer: Color.lerp(shimmer, other.shimmer, t)!,
-      activatedFilterButtonColor: Color.lerp(
-        activatedFilterButtonColor,
-        other.activatedFilterButtonColor,
-        t,
-      )!,
-      inActivatedFilterButtonColor: Color.lerp(
-        inActivatedFilterButtonColor,
-        other.inActivatedFilterButtonColor,
-        t,
-      )!,
-      activatedThemeButtonColor: Color.lerp(
-        activatedThemeButtonColor,
-        other.activatedThemeButtonColor,
-        t,
-      )!,
-      inActivatedThemeButtonColor: Color.lerp(
-        inActivatedThemeButtonColor,
-        other.inActivatedThemeButtonColor,
-        t,
-      )!,
-      sectionBackgroundColor: Color.lerp(
-        sectionBackgroundColor,
-        other.sectionBackgroundColor,
-        t,
-      )!,
-      settingsBackgroundColor: Color.lerp(
-        settingsBackgroundColor,
-        other.settingsBackgroundColor,
-        t,
-      )!,
       approval: Color.lerp(approval, other.approval, t)!,
     );
   }

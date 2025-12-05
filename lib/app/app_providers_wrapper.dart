@@ -6,6 +6,7 @@ import 'package:flutter_app_template/features/auth/data/data.dart';
 import 'package:flutter_app_template/features/auth/domain/domain.dart';
 import 'package:flutter_app_template/features/auth/presentation/presentation.dart';
 import 'package:flutter_app_template/features/settings/data/data.dart';
+import 'package:flutter_app_template/features/settings/domain/domain.dart';
 import 'package:flutter_app_template/features/settings/presentation/presentation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +35,7 @@ class AppProvidersWrapper extends StatelessWidget {
       child: MultiRepositoryProvider(
         providers: [
           RepositoryProvider<ISettingsRepo>(
-            create: (context) => SettingsRepo(
+            create: (context) => LocalSettingsRepo(
               storage: appScope.storageAggregator.sharedPrefsStorage,
             ),
           ),
@@ -70,6 +71,11 @@ class _InteractorProviders extends StatelessWidget {
           lazy: false,
           create: (context) => AuthInteractor(),
         ),
+        RepositoryProvider<SettingsInteractor>(
+          lazy: false,
+          create: (context) =>
+              SettingsInteractor(settingsRepo: context.read<ISettingsRepo>()),
+        ),
       ],
       child: child,
     );
@@ -96,7 +102,7 @@ class _BlocProviders extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => SettingsCubit(
-            settingsRepository: context.read<ISettingsRepo>(),
+            settingsInteractor: context.read<SettingsInteractor>(),
             logger: appScope.logger,
           ),
         ),

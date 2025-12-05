@@ -3,33 +3,32 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/app/app.dart';
 import 'package:flutter_app_template/core/core.dart';
-import 'package:flutter_app_template/features/settings/data/data.dart';
 import 'package:flutter_app_template/features/settings/domain/domain.dart';
 
 part 'settings_state.dart';
 
 class SettingsCubit extends Cubit<SettingsState> {
   SettingsCubit({
-    required ISettingsRepo settingsRepository,
+    required SettingsInteractor settingsInteractor,
     required ILogger logger,
-  }) : _settingsRepository = settingsRepository,
+  }) : _settingsInteractor = settingsInteractor,
        _logger = logger,
        super(const SettingsInitialState()) {
     _restoreSettings();
   }
 
-  final ISettingsRepo _settingsRepository;
+  final SettingsInteractor _settingsInteractor;
   final ILogger _logger;
 
-  Future<void> changeLocale(Locale newLocale) async {
+  Future<void> changeLanguageCode(Locale newLocale) async {
     try {
       if (state is! SettingsLoadedState) {
         return;
       }
       final prevState = state as SettingsLoadedState;
 
-      final bool changeLocaleSuccess = await _settingsRepository.changeLocale(
-        newLocale: newLocale.languageCode,
+      final bool changeLocaleSuccess = await _settingsInteractor.changeLanguage(
+        newLanguageCode: newLocale.languageCode,
       );
 
       if (!changeLocaleSuccess) {
@@ -64,8 +63,8 @@ class SettingsCubit extends Cubit<SettingsState> {
       final prevState = state as SettingsLoadedState;
 
       final String code = _encodeThemeMode(newMode);
-      final bool changeThemeSuccess = await _settingsRepository.changeThemeMode(
-        themeCode: code,
+      final bool changeThemeSuccess = await _settingsInteractor.changeThemeMode(
+        newthemeCode: code,
       );
 
       if (!changeThemeSuccess) {
@@ -99,8 +98,8 @@ class SettingsCubit extends Cubit<SettingsState> {
       }
 
       final List<dynamic> results = await Future.wait([
-        _settingsRepository.getCurrentLocale(),
-        _settingsRepository.getCurrentThemeMode(),
+        _settingsInteractor.getCurrentLanguageCode(),
+        _settingsInteractor.getCurrentThemeMode(),
       ]);
 
       final String localeCode = results[0] as String;

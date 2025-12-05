@@ -1,5 +1,6 @@
 final class AppConfig {
   static const defaultLanguageCode = AppLanguages.ru;
+  static const defaultThemeMode = "system";
 }
 
 abstract class AppLanguages {

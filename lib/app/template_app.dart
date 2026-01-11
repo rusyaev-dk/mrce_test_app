@@ -6,8 +6,9 @@ import 'package:flutter_app_template/features/auth/presentation/presentation.dar
 import 'package:flutter_app_template/features/error/error_screen.dart';
 import 'package:flutter_app_template/features/settings/presentation/presentation.dart';
 import 'package:flutter_app_template/features/splash/splash_screen.dart';
+import 'package:flutter_app_template/features/theme_editor/domain/domain.dart';
 import 'package:flutter_app_template/gen/gen.dart';
-import 'package:flutter_app_template/uikit/themes/app_theme_data.dart';
+import 'package:flutter_app_template/uikit/uikit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
@@ -91,17 +92,33 @@ class _App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<SettingsCubit, SettingsState, (Locale, ThemeMode)>(
+    return BlocSelector<
+      SettingsCubit,
+      SettingsState,
+      (Locale, ThemeMode, AppTheme)
+    >(
       selector: (state) {
         switch (state) {
           case SettingsLoadedState():
-            return (state.locale, state.themeMode);
+            return (state.locale, state.themeMode, state.appTheme);
           default:
-            return (const Locale('ru'), ThemeMode.system);
+            return (
+              const Locale(AppLanguages.ru),
+              ThemeMode.system,
+              AppTheme.basic(),
+            );
         }
       },
       builder: (context, tuple) {
-        final (locale, themeMode) = tuple;
+        final (locale, themeMode, appTheme) = tuple;
+        final appThemeData = AppThemeData(
+          lightScheme: appTheme.lightPalette.toColorScheme(
+            const AppColorScheme.light(),
+          ),
+          darkScheme: appTheme.darkPalette.toColorScheme(
+            const AppColorScheme.dark(),
+          ),
+        );
 
         return MaterialApp.router(
           scrollBehavior: const NoGlowClampingBehavior(),
@@ -113,8 +130,8 @@ class _App extends StatelessWidget {
           ],
           locale: locale,
           supportedLocales: const [Locale('ru'), Locale('uz')],
-          theme: AppThemeData.lightTheme,
-          darkTheme: AppThemeData.darkTheme,
+          theme: appThemeData.getLightTheme(),
+          darkTheme: appThemeData.getDarkTheme(),
           themeMode: themeMode,
           debugShowCheckedModeBanner: false,
           routerConfig: router,

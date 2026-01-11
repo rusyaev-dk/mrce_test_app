@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_template/app/app.dart';
 import 'package:flutter_app_template/core/data/data.dart';
 import 'package:flutter_app_template/core/utils/utils.dart';
 import 'package:flutter_app_template/di/di.dart';
@@ -8,6 +9,8 @@ import 'package:flutter_app_template/features/auth/presentation/presentation.dar
 import 'package:flutter_app_template/features/settings/data/data.dart';
 import 'package:flutter_app_template/features/settings/domain/domain.dart';
 import 'package:flutter_app_template/features/settings/presentation/presentation.dart';
+import 'package:flutter_app_template/features/theme_editor/data/data.dart';
+import 'package:flutter_app_template/features/theme_editor/domain/domain.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
@@ -23,6 +26,10 @@ class AppProvidersWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final IAppEnvPreset envPreset = AppEnvPresetsFactory.create(
+      appScope: appScope,
+    );
+
     return MultiProvider(
       providers: [
         Provider<AppScope>(create: (context) => appScope),
@@ -35,13 +42,14 @@ class AppProvidersWrapper extends StatelessWidget {
       child: MultiRepositoryProvider(
         providers: [
           RepositoryProvider<ISettingsRepo>(
-            create: (context) => LocalSettingsRepo(
-              storage: appScope.storageAggregator.sharedPrefsStorage,
-            ),
+            create: (context) => envPreset.createSettingsRepo(),
+          ),
+          RepositoryProvider<IThemeEditorRepo>(
+            create: (context) => envPreset.createThemeEditorRepo(),
           ),
           RepositoryProvider<ISessionCacheRepo>(
             create: (context) {
-              final cacheRepo = SessionCacheRepo(
+              final cacheRepo = LocalSessionCacheRepo(
                 storage: appScope.storageAggregator.secureStorage,
               );
               // TODO: uncomment if needed
@@ -76,6 +84,12 @@ class _InteractorProviders extends StatelessWidget {
           create: (context) =>
               SettingsInteractor(settingsRepo: context.read<ISettingsRepo>()),
         ),
+        RepositoryProvider<ThemeEditorInteractor>(
+          lazy: false,
+          create: (context) => ThemeEditorInteractor(
+            themeEditorRepo: context.read<IThemeEditorRepo>(),
+          ),
+        ),
       ],
       child: child,
     );
@@ -103,6 +117,7 @@ class _BlocProviders extends StatelessWidget {
         BlocProvider(
           create: (context) => SettingsCubit(
             settingsInteractor: context.read<SettingsInteractor>(),
+            themeConstructorInteractor: context.read<ThemeEditorInteractor>(),
             logger: appScope.logger,
           ),
         ),

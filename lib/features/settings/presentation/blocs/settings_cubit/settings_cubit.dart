@@ -4,20 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_template/app/app.dart';
 import 'package:flutter_app_template/core/core.dart';
 import 'package:flutter_app_template/features/settings/domain/domain.dart';
+import 'package:flutter_app_template/features/theme_editor/domain/domain.dart';
 
 part 'settings_state.dart';
 
 class SettingsCubit extends Cubit<SettingsState> {
   SettingsCubit({
     required SettingsInteractor settingsInteractor,
+    required ThemeEditorInteractor themeConstructorInteractor,
     required ILogger logger,
   }) : _settingsInteractor = settingsInteractor,
+       _themeConstructorInteractor = themeConstructorInteractor,
        _logger = logger,
-       super(const SettingsInitialState()) {
-    _restoreSettings();
-  }
+       super(const SettingsInitialState());
 
   final SettingsInteractor _settingsInteractor;
+  final ThemeEditorInteractor _themeConstructorInteractor;
   final ILogger _logger;
 
   Future<void> changeLanguageCode(Locale newLocale) async {
@@ -64,7 +66,7 @@ class SettingsCubit extends Cubit<SettingsState> {
 
       final String code = _encodeThemeMode(newMode);
       final bool changeThemeSuccess = await _settingsInteractor.changeThemeMode(
-        newthemeCode: code,
+        newThemeCode: code,
       );
 
       if (!changeThemeSuccess) {
@@ -91,7 +93,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     }
   }
 
-  Future<void> _restoreSettings() async {
+  Future<void> restoreSettings() async {
     try {
       if (state is! SettingsLoadingState) {
         emit(const SettingsLoadingState());
@@ -108,8 +110,15 @@ class SettingsCubit extends Cubit<SettingsState> {
       final Locale restoredLocale = Locale(localeCode);
       final ThemeMode restoredTheme = _decodeThemeMode(themeCode);
 
+      final AppTheme appTheme = await _themeConstructorInteractor
+          .loadAppTheme();
+
       emit(
-        SettingsLoadedState(locale: restoredLocale, themeMode: restoredTheme),
+        SettingsLoadedState(
+          locale: restoredLocale,
+          themeMode: restoredTheme,
+          appTheme: appTheme,
+        ),
       );
     } catch (e, st) {
       _logger.exception(e, st);

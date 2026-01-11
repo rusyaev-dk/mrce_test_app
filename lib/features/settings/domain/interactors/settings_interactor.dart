@@ -1,6 +1,6 @@
 import 'package:flutter_app_template/features/settings/data/data.dart';
 
-final class SettingsInteractor {
+class SettingsInteractor {
   SettingsInteractor({
     required ISettingsRepo settingsRepo,
     // required IUserCacheRepo userCacheRepo,
@@ -39,9 +39,9 @@ final class SettingsInteractor {
     return await _settingsRepo.getCurrentLanguageCode();
   }
 
-  Future<bool> changeThemeMode({required String newthemeCode}) async {
+  Future<bool> changeThemeMode({required String newThemeCode}) async {
     final changeThemeSuccess = await _settingsRepo.changeThemeMode(
-      newThemeCode: newthemeCode,
+      newThemeCode: newThemeCode,
     );
 
     return changeThemeSuccess;

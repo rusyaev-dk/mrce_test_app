@@ -1,35 +1,29 @@
-
 final class PhoneFormatter {
-  static const String _countryCode = "+998";
-
   static String? toE164(String input) {
-    final String digits = input.replaceAll(RegExp(r'\D'), '');
+    String digits = input.replaceAll(RegExp(r'\D'), '');
     if (digits.isEmpty) return null;
 
-    // Remove leading "00" (international prefix) if present.
-    final String trimmed = digits.startsWith('00')
-        ? digits.substring(2)
-        : digits;
-
-    // Cases:
-    // 1) Already with country code: 998 + 9 digits => length 12.
-    if (trimmed.startsWith('998') && trimmed.length == 12) {
-      return '+$trimmed';
+    // Remove leading 00 (international call prefix)
+    if (digits.startsWith('00')) {
+      digits = digits.substring(2);
     }
 
-    // 2) National format: exactly 9 digits (e.g., "901234567").
-    if (trimmed.length == 9 && !_startsWithCountryCode(trimmed)) {
-      return '+998$trimmed';
+    // Case 1: already full Uzbekistan number in E.164 digits-only format
+    // 998 + 9 digits = 12 digits total
+    if (digits.startsWith('998') && digits.length == 12) {
+      return '+$digits';
     }
 
-    // 3) If user typed "998" + more/less digits -> invalid shape.
-    // 4) Any other shape -> invalid.
+    // Case 2: local national number (9 digits)
+    // must NOT start with "998"
+    if (digits.length == 9 && !digits.startsWith('998')) {
+      return '+998$digits';
+    }
+
+    // Any other case -> invalid
     return null;
   }
-
-  static bool _startsWithCountryCode(String s) => s.startsWith(_countryCode);
 }
-
 
 final class DateTimeFormatter {
   static DateTime parse(Object? raw) {

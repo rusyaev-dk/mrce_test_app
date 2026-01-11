@@ -1,148 +1,131 @@
-<div align="center">
+# Flutter App Template
 
-# 🚀 Flutter App Template
+Production-ready Flutter application template built with Clean Architecture and a modular, feature-oriented structure.
 
-![Flutter](https://img.shields.io/badge/Flutter-3.32.0+-02569B?style=for-the-badge\&logo=flutter\&logoColor=white)
-![Dart](https://img.shields.io/badge/Dart-3.8.0+-0175C2?style=for-the-badge\&logo=dart\&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
+---
 
-**A scalable Flutter app starter template based on Clean Architecture with modular feature organization.**
-</div>
+## Architecture
 
-## 📘 About
-
-This template provides a solid foundation for production-ready Flutter apps with:
-
-* 🧱 Modular architecture
-* 🧪 Built-in environment support
-* 🌐 Declarative routing (`go_router`)
-* 🔐 Secure and shared storage
-* 🔄 `flutter_bloc` state management
-* 📦 Ready-to-use DI and logging
-* 🌍 Localization support
-
-## 🧱 Architecture Overview
-
-The template follows Clean Architecture principles with a specific adjustment:
-
-> 🟡 **Interactors (use cases)** live in the `domain/` layer
-> 🟡 **BLoC/Cubit logic** lives in the `presentation/` layer
+The project follows Clean Architecture with a clear separation of responsibilities:
 
 ```
-🔐 PRESENTATION
-Widgets, Screens, BLoC, Cubit
+PRESENTATION
+Widgets, BLoC / Cubit
 
-🔐 DOMAIN
-Business Logic, Entities, Interactors
+DOMAIN
+Entities, Interactors (Use Cases)
 
-🔐 DATA
-Repositories, APIs, Storage, DTOs
+DATA
+Repositories, DTOs
 ```
 
-## 🌟 Goals
+- Interactors (use cases) are located in the `domain` layer  
+- All state management logic lives in the `presentation` layer  
+- Strict dependency direction between layers
 
-* 🏁 Kickstart new apps in minutes
-* 🧱 Encourage consistency and scalability
-* 🧪 Enable testability and clean separation
-* 👥 Fit team-based and long-term projects
+---
 
-## 💠 Tech Stack
+## Key Features
 
-| Area             | Package                         |
-| ---------------- | ------------------------------- |
-| Routing          | `go_router`                     |
-| State Management | `flutter_bloc`                  |
-| HTTP             | `dio`                           |
-| Secure Storage   | `flutter_secure_storage`        |
-| Shared Storage   | `shared_preferences`            |
-| Logging          | `talker`                        |
-| Localization     | `flutter_localizations`, `intl` |
-| Env Variables    | `flutter_dotenv`                |
-| Asset Generation | `flutter_gen`                   |
-| DI               | `provider`-based custom DI      |
+- Modular, feature-based project structure
+- Environment support (dev / stage / prod)
+- Declarative navigation using `go_router`
+- State management with `flutter_bloc` and `bloc_concurrency`
+- Localization support (`intl`, `flutter_localizations`)
+- Secure and shared storage
+- Centralized logging with Talker
+- Provider-based dependency injection
+- Mobile and Web support
 
-## 🚀 Quick Start
+---
 
-### 1. Clone and install dependencies
+## Tech Stack
+
+### State & Architecture
+- flutter_bloc / bloc  
+- equatable  
+- provider  
+
+### Networking & Storage
+- dio  
+- shared_preferences  
+- flutter_secure_storage  
+
+### Routing
+- go_router  
+
+### UI & Assets
+- flutter_svg  
+- lottie  
+- flutter_animate  
+- cached_network_image  
+- google_maps_flutter  
+
+### Configuration & Tooling
+- flutter_dotenv  
+- uuid  
+- talker_flutter  
+- talker_dio_logger  
+- talker_bloc_logger  
+
+### Code Generation & Testing
+- build_runner  
+- flutter_gen  
+- intl_utils  
+- bloc_test  
+- mocktail  
+
+---
+
+## Getting Started
+
+Install dependencies and generate code:
 
 ```bash
-git clone https://github.com/your-org/flutter_app_template.git
-cd flutter_app_template
 flutter pub get
-```
-
-### 2. Generate code
-
-```bash
 dart run build_runner build --delete-conflicting-outputs
 ```
 
-### 3. Run the app
+Run the application by environment:
 
 ```bash
 flutter run --target lib/targets/dev.dart
-```
-
-Other environments:
-
-```bash
 flutter run --target lib/targets/stage.dart
 flutter run --target lib/targets/prod.dart
 ```
 
-## ⚙️ Configuration
+---
 
-### 📁 Environments
+## Environments
 
-`.env` files stored in `/env`:
+Environment configuration files are stored in the `env/` directory:
 
-* `.env.dev` — development
-* `.env.stage` — staging
-* `.env.prod` — production
+- `.env.dev`
+- `.env.stage`
+- `.env.prod`
 
-Loaded via `flutter_dotenv`.
-
-### 🌍 Localization
-
-```bash
-flutter gen-l10n
-```
-
-### 🎨 Assets
-
-```bash
-flutter pub run flutter_gen
-```
-
-## 🧪 Debugging
-
-### 🔛 Debug screen
-
-Includes:
-
-* Environment info
-* Locale switcher
-* Theme toggles
-* Token tools
-* Talker logging panel
-* UI kit preview
-
-Accessible via in-app debug button.
-
-### 📊 Logging with Talker
-
-Tracks:
-
-* Bloc events and transitions
-* HTTP requests/responses
-* Exceptions and errors
-* App lifecycle logs
-
-## 📄 License
-
-This project is licensed under the MIT License.
-See the [LICENSE](./LICENSE) file for details.
+They are loaded using `flutter_dotenv`.
 
 ---
 
-Built with ❤️ for scalable Flutter development.
+## Localization & Assets
+
+```bash
+flutter gen-l10n
+flutter pub run flutter_gen
+```
+
+---
+
+## Debug & Logging
+
+- Built-in debug screen
+- Environment, theme, and locale switching
+- HTTP, Bloc, and application logs
+- Talker used as a centralized logging solution
+
+---
+
+## License
+
+MIT License

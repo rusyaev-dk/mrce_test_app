@@ -10,14 +10,12 @@ final class AuthCubit extends Cubit<AuthState> {
   AuthCubit({required AuthInteractor authInteractor, required ILogger logger})
     : _authInteractor = authInteractor,
       _logger = logger,
-      super(const AuthInitialState()) {
-    _restoreOrFetch();
-  }
+      super(const AuthInitialState());
 
   final AuthInteractor _authInteractor;
   final ILogger _logger;
 
-  Future<void> _restoreOrFetch() async {
+  Future<void> restoreOrFetch() async {
     try {
       if (state is! AuthLoadingState) {
         emit(const AuthLoadingState());

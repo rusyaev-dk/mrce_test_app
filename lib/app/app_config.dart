@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_app_template/core/core.dart';
 
 final class AppConfig {
@@ -8,8 +9,15 @@ final class AppConfig {
 abstract class AppLanguages {
   static const String ru = "ru";
   static const String uz = "uz";
+  static const String en = "en";
 
-  static List<String> toList() => [ru, uz];
+  static List<String> toList() => [ru, uz, en];
+
+  static List<Locale> toLocalesList() => [
+    const Locale(ru),
+    const Locale(uz),
+    const Locale(en),
+  ];
 }
 
 abstract class AppRoles {

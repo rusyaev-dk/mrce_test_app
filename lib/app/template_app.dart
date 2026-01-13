@@ -129,7 +129,7 @@ class _App extends StatelessWidget {
             GlobalCupertinoLocalizations.delegate,
           ],
           locale: locale,
-          supportedLocales: const [Locale('ru'), Locale('uz')],
+          supportedLocales: AppLanguages.toLocalesList(),
           theme: appThemeData.getLightTheme(),
           darkTheme: appThemeData.getDarkTheme(),
           themeMode: themeMode,

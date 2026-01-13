@@ -42,7 +42,7 @@ void main() {
 
           return SettingsCubit(
             settingsInteractor: mockSettingsInteractor,
-            themeConstructorInteractor: mockThemeEditorInteractor,
+            themeEditorInteractor: mockThemeEditorInteractor,
             logger: mockLogger,
           );
         },
@@ -80,7 +80,7 @@ void main() {
 
           return SettingsCubit(
             settingsInteractor: mockSettingsInteractor,
-            themeConstructorInteractor: mockThemeEditorInteractor,
+            themeEditorInteractor: mockThemeEditorInteractor,
             logger: mockLogger,
           );
         },
@@ -111,7 +111,7 @@ void main() {
 
           return SettingsCubit(
             settingsInteractor: mockSettingsInteractor,
-            themeConstructorInteractor: mockThemeEditorInteractor,
+            themeEditorInteractor: mockThemeEditorInteractor,
             logger: mockLogger,
           );
         },
@@ -151,7 +151,7 @@ void main() {
 
           return SettingsCubit(
             settingsInteractor: mockSettingsInteractor,
-            themeConstructorInteractor: mockThemeEditorInteractor,
+            themeEditorInteractor: mockThemeEditorInteractor,
             logger: mockLogger,
           );
         },
@@ -199,7 +199,7 @@ void main() {
 
           return SettingsCubit(
             settingsInteractor: mockSettingsInteractor,
-            themeConstructorInteractor: mockThemeEditorInteractor,
+            themeEditorInteractor: mockThemeEditorInteractor,
             logger: mockLogger,
           );
         },
@@ -241,7 +241,7 @@ void main() {
 
           return SettingsCubit(
             settingsInteractor: mockSettingsInteractor,
-            themeConstructorInteractor: mockThemeEditorInteractor,
+            themeEditorInteractor: mockThemeEditorInteractor,
             logger: mockLogger,
           );
         },
@@ -280,7 +280,7 @@ void main() {
 
           return SettingsCubit(
             settingsInteractor: mockSettingsInteractor,
-            themeConstructorInteractor: mockThemeEditorInteractor,
+            themeEditorInteractor: mockThemeEditorInteractor,
             logger: mockLogger,
           );
         },
@@ -328,7 +328,7 @@ void main() {
 
           return SettingsCubit(
             settingsInteractor: mockSettingsInteractor,
-            themeConstructorInteractor: mockThemeEditorInteractor,
+            themeEditorInteractor: mockThemeEditorInteractor,
             logger: mockLogger,
           );
         },
@@ -367,7 +367,7 @@ void main() {
 
           return SettingsCubit(
             settingsInteractor: mockSettingsInteractor,
-            themeConstructorInteractor: mockThemeEditorInteractor,
+            themeEditorInteractor: mockThemeEditorInteractor,
             logger: mockLogger,
           );
         },

@@ -31,7 +31,7 @@ void main() {
         ).thenAnswer((_) async => true);
 
         // Act
-        final bool result = await localSettingsRepo.changeLanguageCode(
+        final bool result = await localSettingsRepo.changeLanguage(
           newLanguageCode: newLanguageCode,
         );
 
@@ -60,7 +60,7 @@ void main() {
         ).thenAnswer((_) async => false);
 
         // Act
-        final bool result = await localSettingsRepo.changeLanguageCode(
+        final bool result = await localSettingsRepo.changeLanguage(
           newLanguageCode: newLanguageCode,
         );
 
@@ -87,7 +87,7 @@ void main() {
         ).thenThrow(StorageWriteException(message: 'write failed'));
 
         // Act
-        final Future<bool> future = localSettingsRepo.changeLanguageCode(
+        final Future<bool> future = localSettingsRepo.changeLanguage(
           newLanguageCode: newLanguageCode,
         );
 

@@ -111,15 +111,15 @@ class _BlocProviders extends StatelessWidget {
           create: (context) => AuthCubit(
             authInteractor: context.read<AuthInteractor>(),
             logger: appScope.logger,
-          ),
+          )..restoreOrFetch(),
           lazy: false,
         ),
         BlocProvider(
           create: (context) => SettingsCubit(
             settingsInteractor: context.read<SettingsInteractor>(),
-            themeConstructorInteractor: context.read<ThemeEditorInteractor>(),
+            themeEditorInteractor: context.read<ThemeEditorInteractor>(),
             logger: appScope.logger,
-          ),
+          )..restoreSettings(),
         ),
       ],
       child: child,

@@ -11,15 +11,15 @@ part 'settings_state.dart';
 class SettingsCubit extends Cubit<SettingsState> {
   SettingsCubit({
     required SettingsInteractor settingsInteractor,
-    required ThemeEditorInteractor themeConstructorInteractor,
+    required ThemeEditorInteractor themeEditorInteractor,
     required ILogger logger,
   }) : _settingsInteractor = settingsInteractor,
-       _themeConstructorInteractor = themeConstructorInteractor,
+       _themeEditorInteractor = themeEditorInteractor,
        _logger = logger,
        super(const SettingsInitialState());
 
   final SettingsInteractor _settingsInteractor;
-  final ThemeEditorInteractor _themeConstructorInteractor;
+  final ThemeEditorInteractor _themeEditorInteractor;
   final ILogger _logger;
 
   Future<void> changeLanguageCode(Locale newLocale) async {
@@ -110,7 +110,7 @@ class SettingsCubit extends Cubit<SettingsState> {
       final Locale restoredLocale = Locale(localeCode);
       final ThemeMode restoredTheme = _decodeThemeMode(themeCode);
 
-      final AppTheme appTheme = await _themeConstructorInteractor
+      final AppTheme appTheme = await _themeEditorInteractor
           .loadAppTheme();
 
       emit(

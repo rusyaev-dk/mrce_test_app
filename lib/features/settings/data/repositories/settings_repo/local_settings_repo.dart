@@ -10,7 +10,7 @@ class LocalSettingsRepo implements ISettingsRepo {
   final String _themeKey = "theme";
 
   @override
-  Future<bool> changeLanguageCode({required String newLanguageCode}) async {
+  Future<bool> changeLanguage({required String newLanguageCode}) async {
     return await _storage.write<String>(
       key: _languageCodeKey,
       value: newLanguageCode,

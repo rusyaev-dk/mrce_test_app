@@ -14,7 +14,7 @@ class SettingsInteractor {
   // final IUserRepo _userRepo;
 
   Future<bool> changeLanguage({required String newLanguageCode}) async {
-    final changeLanguageSuccess = await _settingsRepo.changeLanguageCode(
+    final changeLanguageSuccess = await _settingsRepo.changeLanguage(
       newLanguageCode: newLanguageCode,
     );
 

@@ -164,6 +164,16 @@ class S {
     );
   }
 
+  /// `Произошла неизвестная ошибка`
+  String get appUnknownException {
+    return Intl.message(
+      'Произошла неизвестная ошибка',
+      name: 'appUnknownException',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Ошибка авторизации, пожалуйста, войдите снова`
   String get apiUnauthorizedException {
     return Intl.message(
@@ -189,26 +199,6 @@ class S {
     return Intl.message(
       'Ошибка валидации данных, проверьте введённую информацию',
       name: 'apiValidationException',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Ошибка соединения, проверьте интернет-подключение`
-  String get apiConnectionException {
-    return Intl.message(
-      'Ошибка соединения, проверьте интернет-подключение',
-      name: 'apiConnectionException',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Неизвестная ошибка при запросе к серверу`
-  String get apiUnknownException {
-    return Intl.message(
-      'Неизвестная ошибка при запросе к серверу',
-      name: 'apiUnknownException',
       desc: '',
       args: [],
     );
@@ -244,61 +234,31 @@ class S {
     );
   }
 
-  /// `Ошибка чтения данных из хранилища`
-  String get storageReadException {
+  /// `Ошибка хранилища`
+  String get storageException {
     return Intl.message(
-      'Ошибка чтения данных из хранилища',
-      name: 'storageReadException',
+      'Ошибка хранилища',
+      name: 'storageException',
       desc: '',
       args: [],
     );
   }
 
-  /// `Ошибка сериализации данных`
-  String get storageSerializationException {
+  /// `Ошибка чтения/записи в хранилище`
+  String get storageIOException {
     return Intl.message(
-      'Ошибка сериализации данных',
-      name: 'storageSerializationException',
+      'Ошибка чтения/записи в хранилище',
+      name: 'storageIOException',
       desc: '',
       args: [],
     );
   }
 
-  /// `Неизвестная ошибка при работе с хранилищем`
-  String get storageUnknownException {
+  /// `Ошибка авторизации`
+  String get authException {
     return Intl.message(
-      'Неизвестная ошибка при работе с хранилищем',
-      name: 'storageUnknownException',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Данные не найдены в хранилище`
-  String get storageNotFoundException {
-    return Intl.message(
-      'Данные не найдены в хранилище',
-      name: 'storageNotFoundException',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Ошибка сохранения данных в хранилище`
-  String get storageWriteException {
-    return Intl.message(
-      'Ошибка сохранения данных в хранилище',
-      name: 'storageWriteException',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Ошибка удаления данных из хранилища`
-  String get storageDeleteException {
-    return Intl.message(
-      'Ошибка удаления данных из хранилища',
-      name: 'storageDeleteException',
+      'Ошибка авторизации',
+      name: 'authException',
       desc: '',
       args: [],
     );
@@ -324,181 +284,41 @@ class S {
     );
   }
 
-  /// `Сессия истекла, пожалуйста, выполните вход снова`
-  String get authExpiredSessionException {
+  /// `Введены некорректные символы`
+  String get invalidCharactersException {
     return Intl.message(
-      'Сессия истекла, пожалуйста, выполните вход снова',
-      name: 'authExpiredSessionException',
+      'Введены некорректные символы',
+      name: 'invalidCharactersException',
       desc: '',
       args: [],
     );
   }
 
-  /// `Неизвестная ошибка при авторизации`
-  String get authUnknownException {
+  /// `Недопустимое количество символов`
+  String get charactersCountViolationException {
     return Intl.message(
-      'Неизвестная ошибка при авторизации',
-      name: 'authUnknownException',
+      'Недопустимое количество символов',
+      name: 'charactersCountViolationException',
       desc: '',
       args: [],
     );
   }
 
-  /// `Не удалось сохранить сортировку`
-  String get sortingSaveException {
+  /// `Некорректное значение`
+  String get inconsistentValueException {
     return Intl.message(
-      'Не удалось сохранить сортировку',
-      name: 'sortingSaveException',
+      'Некорректное значение',
+      name: 'inconsistentValueException',
       desc: '',
       args: [],
     );
   }
 
-  /// `Не удалось сбросить сортировку`
-  String get sortingClearException {
+  /// `Обязательно для заполнения`
+  String get requiredValueNotProvidedException {
     return Intl.message(
-      'Не удалось сбросить сортировку',
-      name: 'sortingClearException',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Не удалось обновить сортировку`
-  String get sortingUpdateException {
-    return Intl.message(
-      'Не удалось обновить сортировку',
-      name: 'sortingUpdateException',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Не удалось сохранить фильтры`
-  String get filteringSaveException {
-    return Intl.message(
-      'Не удалось сохранить фильтры',
-      name: 'filteringSaveException',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Не удалось сбросить фильтры`
-  String get filteringClearException {
-    return Intl.message(
-      'Не удалось сбросить фильтры',
-      name: 'filteringClearException',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Не удалось обновить фильтры`
-  String get filteringUpdateException {
-    return Intl.message(
-      'Не удалось обновить фильтры',
-      name: 'filteringUpdateException',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Неизвестная ошибка при поиске`
-  String get searchUnknownException {
-    return Intl.message(
-      'Неизвестная ошибка при поиске',
-      name: 'searchUnknownException',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Не удалось сменить язык`
-  String get settingsLocaleChangeException {
-    return Intl.message(
-      'Не удалось сменить язык',
-      name: 'settingsLocaleChangeException',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Не удалось сменить тему`
-  String get settingsThemeModeChangeException {
-    return Intl.message(
-      'Не удалось сменить тему',
-      name: 'settingsThemeModeChangeException',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Не удалось загрузить язык`
-  String get settingsRestoreLocaleException {
-    return Intl.message(
-      'Не удалось загрузить язык',
-      name: 'settingsRestoreLocaleException',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Не удалось загрузить тему`
-  String get settingsRestoreThemeModeException {
-    return Intl.message(
-      'Не удалось загрузить тему',
-      name: 'settingsRestoreThemeModeException',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Неизвестная ошибка при работе с настройками`
-  String get settingsUnknownException {
-    return Intl.message(
-      'Неизвестная ошибка при работе с настройками',
-      name: 'settingsUnknownException',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Не удалось добавить в избранное`
-  String get userFavouritesAddException {
-    return Intl.message(
-      'Не удалось добавить в избранное',
-      name: 'userFavouritesAddException',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Не удалось удалить из избранного`
-  String get userFavouritesDeleteException {
-    return Intl.message(
-      'Не удалось удалить из избранного',
-      name: 'userFavouritesDeleteException',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Не удалось загрузить избранное`
-  String get userFavouritesLoadException {
-    return Intl.message(
-      'Не удалось загрузить избранное',
-      name: 'userFavouritesLoadException',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Неизвестная ошибка при работе с избранным`
-  String get userFavouritesUnknownException {
-    return Intl.message(
-      'Неизвестная ошибка при работе с избранным',
-      name: 'userFavouritesUnknownException',
+      'Обязательно для заполнения',
+      name: 'requiredValueNotProvidedException',
       desc: '',
       args: [],
     );

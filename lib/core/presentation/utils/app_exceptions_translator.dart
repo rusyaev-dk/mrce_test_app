@@ -1,55 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/app/app.dart';
 import 'package:flutter_app_template/core/core.dart';
-import 'package:flutter_app_template/features/auth/domain/domain.dart';
-import 'package:flutter_app_template/features/settings/domain/domain.dart';
 import 'package:flutter_app_template/gen/l10n/l10n.dart';
 
-/// Provides localized messages for custom exceptions.
-final class AppExceptionsTranslator {
-  AppExceptionsTranslator._();
+class AppExceptionsTranslator {
+  static final Map<Type, String Function(S)> _registry =
+      <Type, String Function(S)>{
+        // General exceptions
+        AppException: (s) => s.appException,
+        AppUnknownException: (s) => s.appUnknownException,
 
-  /// Registry that maps exception Type to a localized string getter.
-  /// Keys in l10n must be lowerCamelCase.
-  static final Map<Type, String Function(S)>
-  _registry = <Type, String Function(S)>{
-    // API exceptions
-    ApiUnauthorizedException: (s) => s.apiUnauthorizedException,
-    ApiServerException: (s) => s.apiServerException,
-    ApiValidationException: (s) => s.apiValidationException,
-    ApiConnectionException: (s) => s.apiConnectionException,
-    ApiUnknownException: (s) => s.apiUnknownException,
-    ApiNotFoundException: (s) => s.apiNotFoundException,
-    ApiForbiddenException: (s) => s.apiForbiddenException,
-    ApiTimeoutException: (s) => s.apiTimeoutException,
+        // API exceptions
+        ApiUnauthorizedException: (s) => s.apiUnauthorizedException,
+        ApiServerException: (s) => s.apiServerException,
+        ApiValidationException: (s) => s.apiValidationException,
+        ApiNotFoundException: (s) => s.apiNotFoundException,
+        ApiForbiddenException: (s) => s.apiForbiddenException,
+        ApiTimeoutException: (s) => s.apiTimeoutException,
 
-    // Storage exceptions
-    StorageReadException: (s) => s.storageReadException,
-    StorageSerializationException: (s) => s.storageSerializationException,
-    StorageUnknownException: (s) => s.storageUnknownException,
-    StorageNotFoundException: (s) => s.storageNotFoundException,
-    StorageWriteException: (s) => s.storageWriteException,
-    StorageDeleteException: (s) => s.storageDeleteException,
+        // Storage exceptions
+        StorageException: (s) => s.storageException,
+        StorageIOException: (s) => s.storageIOException,
 
-    // Auth exceptions
-    AuthUnauthorizedException: (s) => s.authUnauthorizedException,
-    AuthInvalidCredentialsException: (s) => s.authInvalidCredentialsException,
-    AuthExpiredSessionException: (s) => s.authExpiredSessionException,
-    AppAuthException: (s) => s.authUnknownException,
-
-    // Settings exceptions
-    SettingsLocaleChangeException: (s) => s.settingsLocaleChangeException,
-    SettingsThemeModeChangeException: (s) => s.settingsThemeModeChangeException,
-    SettingsRestoreLocaleException: (s) => s.settingsRestoreLocaleException,
-    SettingsRestoreThemeModeException: (s) =>
-        s.settingsRestoreThemeModeException,
-    AppSettingsException: (s) => s.settingsUnknownException,
-
-    // Optional base-class fallbacks
-    AppApiException: (s) => s.apiUnknownException,
-    AppStorageException: (s) => s.storageUnknownException,
-    AppException: (s) => s.appException,
-  };
+        // General domain exceptions
+        InvalidCharactersException: (s) => s.invalidCharactersException,
+        CharactersCountViolationException: (s) =>
+            s.charactersCountViolationException,
+        RequiredValueNotProvidedException: (s) =>
+            s.requiredValueNotProvidedException,
+        InconsistentValueException: (s) => s.inconsistentValueException,
+      };
 
   static String translate(
     BuildContext context,
@@ -63,12 +43,6 @@ final class AppExceptionsTranslator {
 
     final String Function(S)? direct = _registry[type];
     if (direct != null) return direct(s);
-
-    if (exception is AppAuthException) return s.authUnknownException;
-    if (exception is AppSettingsException) return s.settingsUnknownException;
-    if (exception is AppApiException) return s.apiUnknownException;
-    if (exception is AppStorageException) return s.storageUnknownException;
-    if (exception is AppException) return s.appException;
 
     return fallback ?? exception.toString();
   }

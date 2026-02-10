@@ -1,10 +1,10 @@
-import 'package:flutter_app_template/app/app_config.dart';
-import 'package:flutter_app_template/core/data/data.dart';
+import 'package:flutter_app_template/app/app.dart';
+import 'package:flutter_app_template/core/core.dart';
 import 'package:flutter_app_template/features/settings/data/data.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../../core/storage/mock_key_value_storage.dart';
+import '../../../../core/data/storage/mock_key_value_storage.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +31,7 @@ void main() {
         ).thenAnswer((_) async => true);
 
         // Act
-        final bool result = await localSettingsRepo.changeLanguage(
+        final bool result = await localSettingsRepo.changeLanguageCode(
           newLanguageCode: newLanguageCode,
         );
 
@@ -60,7 +60,7 @@ void main() {
         ).thenAnswer((_) async => false);
 
         // Act
-        final bool result = await localSettingsRepo.changeLanguage(
+        final bool result = await localSettingsRepo.changeLanguageCode(
           newLanguageCode: newLanguageCode,
         );
 
@@ -84,15 +84,15 @@ void main() {
             key: any(named: 'key'),
             value: any(named: 'value'),
           ),
-        ).thenThrow(StorageWriteException(message: 'write failed'));
+        ).thenThrow(StorageIOException(message: 'write failed'));
 
         // Act
-        final Future<bool> future = localSettingsRepo.changeLanguage(
+        final Future<bool> future = localSettingsRepo.changeLanguageCode(
           newLanguageCode: newLanguageCode,
         );
 
         // Assert
-        await expectLater(future, throwsA(isA<StorageWriteException>()));
+        await expectLater(future, throwsA(isA<StorageIOException>()));
 
         verify(
           () => mockStorage.write<String>(
@@ -146,14 +146,14 @@ void main() {
         // Arrange
         when(
           () => mockStorage.read<String>(key: any(named: 'key')),
-        ).thenThrow(StorageReadException(message: 'read failed'));
+        ).thenThrow(StorageIOException(message: 'read failed'));
 
         // Act
         final Future<String> future = localSettingsRepo
             .getCurrentLanguageCode();
 
         // Assert
-        await expectLater(future, throwsA(isA<StorageReadException>()));
+        await expectLater(future, throwsA(isA<StorageIOException>()));
 
         verify(() => mockStorage.read<String>(key: 'language_code')).called(1);
       });
@@ -219,7 +219,7 @@ void main() {
             key: any(named: 'key'),
             value: any(named: 'value'),
           ),
-        ).thenThrow(StorageWriteException(message: 'write failed'));
+        ).thenThrow(StorageIOException(message: 'write failed'));
 
         // Act
         final Future<bool> future = localSettingsRepo.changeThemeMode(
@@ -227,7 +227,7 @@ void main() {
         );
 
         // Assert
-        await expectLater(future, throwsA(isA<StorageWriteException>()));
+        await expectLater(future, throwsA(isA<StorageIOException>()));
 
         verify(
           () => mockStorage.write<String>(key: 'theme', value: newThemeCode),
@@ -275,13 +275,13 @@ void main() {
         // Arrange
         when(
           () => mockStorage.read<String>(key: any(named: 'key')),
-        ).thenThrow(StorageReadException(message: 'read failed'));
+        ).thenThrow(StorageIOException(message: 'read failed'));
 
         // Act
         final Future<String> future = localSettingsRepo.getCurrentThemeMode();
 
         // Assert
-        await expectLater(future, throwsA(isA<StorageReadException>()));
+        await expectLater(future, throwsA(isA<StorageIOException>()));
 
         verify(() => mockStorage.read<String>(key: 'theme')).called(1);
       });

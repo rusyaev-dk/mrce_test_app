@@ -22,9 +22,6 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-    "apiConnectionException": MessageLookupByLibrary.simpleMessage(
-      "Ошибка соединения, проверьте интернет-подключение",
-    ),
     "apiForbiddenException": MessageLookupByLibrary.simpleMessage(
       "Доступ запрещён, у вас нет прав для выполнения этого действия",
     ),
@@ -40,111 +37,58 @@ class MessageLookup extends MessageLookupByLibrary {
     "apiUnauthorizedException": MessageLookupByLibrary.simpleMessage(
       "Ошибка авторизации, пожалуйста, войдите снова",
     ),
-    "apiUnknownException": MessageLookupByLibrary.simpleMessage(
-      "Неизвестная ошибка при запросе к серверу",
-    ),
     "apiValidationException": MessageLookupByLibrary.simpleMessage(
       "Ошибка валидации данных, проверьте введённую информацию",
     ),
     "appException": MessageLookupByLibrary.simpleMessage(
       "Произошла ошибка приложения",
     ),
-    "apply": MessageLookupByLibrary.simpleMessage("Применить"),
-    "authExpiredSessionException": MessageLookupByLibrary.simpleMessage(
-      "Сессия истекла, пожалуйста, выполните вход снова",
+    "appUnknownException": MessageLookupByLibrary.simpleMessage(
+      "Произошла неизвестная ошибка",
     ),
+    "apply": MessageLookupByLibrary.simpleMessage("Применить"),
+    "authException": MessageLookupByLibrary.simpleMessage("Ошибка авторизации"),
     "authInvalidCredentialsException": MessageLookupByLibrary.simpleMessage(
       "Неверные учетные данные, проверьте логин или пароль",
     ),
     "authUnauthorizedException": MessageLookupByLibrary.simpleMessage(
       "Вы не авторизованы, пожалуйста, войдите снова",
     ),
-    "authUnknownException": MessageLookupByLibrary.simpleMessage(
-      "Неизвестная ошибка при авторизации",
-    ),
     "back": MessageLookupByLibrary.simpleMessage("Назад"),
     "cancel": MessageLookupByLibrary.simpleMessage("Отмена"),
+    "charactersCountViolationException": MessageLookupByLibrary.simpleMessage(
+      "Недопустимое количество символов",
+    ),
     "clear": MessageLookupByLibrary.simpleMessage("Очистить"),
     "close": MessageLookupByLibrary.simpleMessage("Закрыть"),
     "confirm": MessageLookupByLibrary.simpleMessage("Подтвердить"),
     "delete": MessageLookupByLibrary.simpleMessage("Удалить"),
     "edit": MessageLookupByLibrary.simpleMessage("Редактировать"),
-    "filteringClearException": MessageLookupByLibrary.simpleMessage(
-      "Не удалось сбросить фильтры",
+    "inconsistentValueException": MessageLookupByLibrary.simpleMessage(
+      "Некорректное значение",
     ),
-    "filteringSaveException": MessageLookupByLibrary.simpleMessage(
-      "Не удалось сохранить фильтры",
-    ),
-    "filteringUpdateException": MessageLookupByLibrary.simpleMessage(
-      "Не удалось обновить фильтры",
+    "invalidCharactersException": MessageLookupByLibrary.simpleMessage(
+      "Введены некорректные символы",
     ),
     "language": MessageLookupByLibrary.simpleMessage("Язык"),
     "next": MessageLookupByLibrary.simpleMessage("Далее"),
     "ok": MessageLookupByLibrary.simpleMessage("ОК"),
+    "requiredValueNotProvidedException": MessageLookupByLibrary.simpleMessage(
+      "Обязательно для заполнения",
+    ),
     "reset": MessageLookupByLibrary.simpleMessage("Сбросить"),
     "save": MessageLookupByLibrary.simpleMessage("Сохранить"),
-    "searchUnknownException": MessageLookupByLibrary.simpleMessage(
-      "Неизвестная ошибка при поиске",
-    ),
     "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
-    "settingsLocaleChangeException": MessageLookupByLibrary.simpleMessage(
-      "Не удалось сменить язык",
-    ),
-    "settingsRestoreLocaleException": MessageLookupByLibrary.simpleMessage(
-      "Не удалось загрузить язык",
-    ),
-    "settingsRestoreThemeModeException": MessageLookupByLibrary.simpleMessage(
-      "Не удалось загрузить тему",
-    ),
-    "settingsThemeModeChangeException": MessageLookupByLibrary.simpleMessage(
-      "Не удалось сменить тему",
-    ),
-    "settingsUnknownException": MessageLookupByLibrary.simpleMessage(
-      "Неизвестная ошибка при работе с настройками",
-    ),
     "share": MessageLookupByLibrary.simpleMessage("Поделиться"),
-    "sortingClearException": MessageLookupByLibrary.simpleMessage(
-      "Не удалось сбросить сортировку",
+    "storageException": MessageLookupByLibrary.simpleMessage(
+      "Ошибка хранилища",
     ),
-    "sortingSaveException": MessageLookupByLibrary.simpleMessage(
-      "Не удалось сохранить сортировку",
-    ),
-    "sortingUpdateException": MessageLookupByLibrary.simpleMessage(
-      "Не удалось обновить сортировку",
-    ),
-    "storageDeleteException": MessageLookupByLibrary.simpleMessage(
-      "Ошибка удаления данных из хранилища",
-    ),
-    "storageNotFoundException": MessageLookupByLibrary.simpleMessage(
-      "Данные не найдены в хранилище",
-    ),
-    "storageReadException": MessageLookupByLibrary.simpleMessage(
-      "Ошибка чтения данных из хранилища",
-    ),
-    "storageSerializationException": MessageLookupByLibrary.simpleMessage(
-      "Ошибка сериализации данных",
-    ),
-    "storageUnknownException": MessageLookupByLibrary.simpleMessage(
-      "Неизвестная ошибка при работе с хранилищем",
-    ),
-    "storageWriteException": MessageLookupByLibrary.simpleMessage(
-      "Ошибка сохранения данных в хранилище",
+    "storageIOException": MessageLookupByLibrary.simpleMessage(
+      "Ошибка чтения/записи в хранилище",
     ),
     "themeMode": MessageLookupByLibrary.simpleMessage("Тема"),
     "themeModeDark": MessageLookupByLibrary.simpleMessage("Тёмная"),
     "themeModeLight": MessageLookupByLibrary.simpleMessage("Светлая"),
     "themeModeSystem": MessageLookupByLibrary.simpleMessage("Системная"),
-    "userFavouritesAddException": MessageLookupByLibrary.simpleMessage(
-      "Не удалось добавить в избранное",
-    ),
-    "userFavouritesDeleteException": MessageLookupByLibrary.simpleMessage(
-      "Не удалось удалить из избранного",
-    ),
-    "userFavouritesLoadException": MessageLookupByLibrary.simpleMessage(
-      "Не удалось загрузить избранное",
-    ),
-    "userFavouritesUnknownException": MessageLookupByLibrary.simpleMessage(
-      "Неизвестная ошибка при работе с избранным",
-    ),
   };
 }

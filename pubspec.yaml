@@ -1,7 +1,7 @@
-name: flutter_app_template
-description: "A new Flutter project."
+name: mrce_test_app
+description: ""
 
-publish_to: "none" # Remove this line if you wish to publish to pub.dev
+publish_to: "none"
 
 version: 0.0.1+1
 
@@ -12,48 +12,55 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
   bloc: 9.2.0
-  bloc_concurrency: ^0.3.0
-  cupertino_icons: 1.0.8
-  dio: 5.9.0
-  equatable: 2.0.8
-  flutter_animate: 4.5.2
   flutter_bloc: 9.1.1
+  bloc_concurrency: ^0.3.0
+  equatable: 2.0.8
+  yandex_mapkit: ^3.3.0
+  dio: 5.9.0
+  hive_flutter: ^1.1.0
+  shared_preferences: ^2.5.2
+  freezed_annotation: ^2.4.4
+  json_annotation: ^4.9.0
+  go_router: ^16.3.0
   flutter_dotenv: 6.0.0
+  stream_transform: 2.1.1
+  uuid: 4.5.2
+  intl: 0.20.2
+  flutter_svg: 2.2.1
+  flutter_animate: 4.5.2
   flutter_localizations:
     sdk: flutter
-  flutter_secure_storage: ^10.0.0
-  flutter_svg: 2.2.1
-  go_router: ^16.3.0
-  intl: 0.20.2
-  lottie: 3.3.1
-  provider: 6.1.5
-  shared_preferences: 2.5.4
-  stream_transform: 2.1.1
+
   talker_bloc_logger: ^5.1.9
   talker_dio_logger: ^5.1.9
   talker_flutter: 5.1.9
-  uuid: 4.5.2
 
-  
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: 2.10.4
   flutter_lints: 6.0.0
-  intl_utils: 2.8.13
-  flutter_gen_runner: 5.12.0
+
+  build_runner: ^2.4.13
+  freezed: ^2.5.2
+  json_serializable: ^6.8.0
+  hive_generator: ^2.0.1
+
+  flutter_gen_runner: 5.7.0
+
+  intl_utils: 2.8.8
   mocktail: ^1.0.0
   bloc_test: ^10.0.0
 
 flutter:
   uses-material-design: true
   generate: true
+
   assets:
     - env/
     - assets/icons/
     - assets/fonts/
-    - assets/lottie/
 
   fonts:
     - family: Montserrat
@@ -71,13 +78,11 @@ flutter:
 
 flutter_gen:
   output: lib/gen/
-  
   integrations:
     flutter_svg: true
-    lottie: true
 
 flutter_intl:
   enabled: true
-  arb_dir: lib/l10n # Optional. Sets the directory of your ARB resource files. Provided value should be a valid path on your system. Default: lib/l10n
-  output_dir: lib/gen/l10n # Optional. Sets the directory of generated localization files. Provided value should be a valid path on your system. Default: lib/generated
+  arb_dir: lib/l10n
+  output_dir: lib/gen/l10n
   main_locale: ru

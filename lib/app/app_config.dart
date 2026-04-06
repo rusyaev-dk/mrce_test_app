@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_app_template/core/core.dart';
+import 'package:mrce_test_app/core/core.dart';
 
 final class AppConfig {
   static const String defaultLanguageCode = AppLanguages.ru;

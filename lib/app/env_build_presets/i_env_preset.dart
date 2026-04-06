@@ -1,19 +1,19 @@
-import 'package:flutter_app_template/app/app.dart';
-import 'package:flutter_app_template/di/di.dart';
-import 'package:flutter_app_template/features/auth/data/data.dart';
-import 'package:flutter_app_template/features/settings/data/data.dart';
-import 'package:flutter_app_template/features/theme_editor/data/data.dart';
+import 'package:mrce_test_app/app/app.dart';
+import 'package:mrce_test_app/di/di.dart';
+import 'package:mrce_test_app/features/map/data/data.dart';
+import 'package:mrce_test_app/features/saved_addresses/data/data.dart';
+import 'package:mrce_test_app/features/settings/data/data.dart';
 
 abstract interface class IAppEnvPreset {
-  IAuthRepo createAuthRepo();
-
   ISettingsRepo createSettingsRepo();
-  IThemeEditorRepo createThemeEditorRepo();
+
+  IGeocodeRepo createGeocodeRepo();
+  ISavedAddressesRepo createSavedAddressesRepo();
 }
 
 sealed class AppEnvPresetsFactory {
   static IAppEnvPreset create({required AppScope appScope}) {
-    switch (appScope.env) {
+    switch (appScope.envType) {
       case AppEnvType.dev:
         return DevEnvPreset(appScope: appScope);
       case AppEnvType.stage:

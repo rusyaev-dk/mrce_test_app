@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_template/app/app.dart';
-import 'package:flutter_app_template/core/core.dart';
-import 'package:flutter_app_template/gen/l10n/l10n.dart';
+import 'package:mrce_test_app/app/app.dart';
+import 'package:mrce_test_app/core/core.dart';
+import 'package:mrce_test_app/gen/l10n/l10n.dart';
 
 class AppExceptionsTranslator {
   static final Map<Type, String Function(S)> _registry =

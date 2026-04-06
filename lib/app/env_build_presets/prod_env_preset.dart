@@ -1,9 +1,9 @@
-import 'package:flutter_app_template/app/app.dart';
-import 'package:flutter_app_template/core/data/data.dart';
-import 'package:flutter_app_template/di/di.dart';
-import 'package:flutter_app_template/features/auth/data/data.dart';
-import 'package:flutter_app_template/features/settings/data/data.dart';
-import 'package:flutter_app_template/features/theme_editor/data/data.dart';
+import 'package:mrce_test_app/app/app.dart';
+import 'package:mrce_test_app/core/data/data.dart';
+import 'package:mrce_test_app/di/di.dart';
+import 'package:mrce_test_app/features/map/data/data.dart';
+import 'package:mrce_test_app/features/saved_addresses/data/data.dart';
+import 'package:mrce_test_app/features/settings/data/data.dart';
 
 final class ProdEnvPreset implements IAppEnvPreset {
   ProdEnvPreset({required AppScope appScope})
@@ -17,13 +17,6 @@ final class ProdEnvPreset implements IAppEnvPreset {
   final IHttpClient _httpClient;
 
   @override
-  IAuthRepo createAuthRepo() {
-    _httpClient.hashCode;
-    throw UnimplementedError();
-    // return HttpAuthRepo(httpClient: _httpClient);
-  }
-
-  @override
   ISettingsRepo createSettingsRepo() {
     return LocalSettingsRepo(
       storage: _appScope.storageAggregator.localKeyValueStorage,
@@ -31,7 +24,15 @@ final class ProdEnvPreset implements IAppEnvPreset {
   }
 
   @override
-  IThemeEditorRepo createThemeEditorRepo() {
-    return MockThemeEditorRepo();
+  IGeocodeRepo createGeocodeRepo() {
+    return HttpGeocodeRepo(httpClient: _httpClient);
+  }
+
+  @override
+  ISavedAddressesRepo createSavedAddressesRepo() {
+    return HiveSavedAddressesRepo(
+      savedAddressesBox:
+          _appScope.storageAggregator.hiveBoxes.savedAddressesBox,
+    );
   }
 }

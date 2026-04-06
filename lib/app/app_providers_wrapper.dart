@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_template/app/app.dart';
-import 'package:flutter_app_template/core/data/data.dart';
-import 'package:flutter_app_template/core/utils/utils.dart';
-import 'package:flutter_app_template/di/di.dart';
-import 'package:flutter_app_template/features/auth/data/data.dart';
-import 'package:flutter_app_template/features/auth/domain/domain.dart';
-import 'package:flutter_app_template/features/auth/presentation/presentation.dart';
-import 'package:flutter_app_template/features/settings/data/data.dart';
-import 'package:flutter_app_template/features/settings/domain/domain.dart';
-import 'package:flutter_app_template/features/settings/presentation/presentation.dart';
-import 'package:flutter_app_template/features/theme_editor/data/data.dart';
-import 'package:flutter_app_template/features/theme_editor/domain/domain.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mrce_test_app/app/app.dart';
+import 'package:mrce_test_app/core/data/data.dart';
+import 'package:mrce_test_app/core/utils/utils.dart';
+import 'package:mrce_test_app/di/di.dart';
+import 'package:mrce_test_app/features/map/data/data.dart';
+import 'package:mrce_test_app/features/map/domain/domain.dart';
+import 'package:mrce_test_app/features/saved_addresses/data/data.dart';
+import 'package:mrce_test_app/features/saved_addresses/domain/domain.dart';
+import 'package:mrce_test_app/features/settings/data/data.dart';
+import 'package:mrce_test_app/features/settings/domain/domain.dart';
+import 'package:mrce_test_app/features/settings/presentation/presentation.dart';
 import 'package:provider/provider.dart';
 
 class AppProvidersWrapper extends StatelessWidget {
@@ -44,20 +43,11 @@ class AppProvidersWrapper extends StatelessWidget {
           RepositoryProvider<ISettingsRepo>(
             create: (context) => envPreset.createSettingsRepo(),
           ),
-          RepositoryProvider<IThemeEditorRepo>(
-            create: (context) => envPreset.createThemeEditorRepo(),
+          RepositoryProvider<ISavedAddressesRepo>(
+            create: (context) => envPreset.createSavedAddressesRepo(),
           ),
-          RepositoryProvider<ISessionCacheRepo>(
-            create: (context) {
-              final cacheRepo = LocalSessionCacheRepo(
-                storage: appScope.storageAggregator.secureStorage,
-              );
-              // TODO: uncomment if needed
-              // appScope.dio.interceptors.add(
-              //   JWTInterceptor(sessionCacheRepo: cacheRepo),
-              // );
-              return cacheRepo;
-            },
+          RepositoryProvider<IGeocodeRepo>(
+            create: (context) => envPreset.createGeocodeRepo(),
           ),
         ],
         child: _InteractorProviders(child: _BlocProviders(child: child)),
@@ -75,20 +65,21 @@ class _InteractorProviders extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
-        RepositoryProvider<AuthInteractor>(
-          lazy: false,
-          create: (context) => AuthInteractor(),
-        ),
         RepositoryProvider<SettingsInteractor>(
           lazy: false,
           create: (context) =>
               SettingsInteractor(settingsRepo: context.read<ISettingsRepo>()),
         ),
-        RepositoryProvider<ThemeEditorInteractor>(
+        RepositoryProvider<SavedAddressesInteractor>(
           lazy: false,
-          create: (context) => ThemeEditorInteractor(
-            themeEditorRepo: context.read<IThemeEditorRepo>(),
+          create: (context) => SavedAddressesInteractor(
+            savedAddressesRepo: context.read<ISavedAddressesRepo>(),
           ),
+        ),
+        RepositoryProvider<GeocodeInteractor>(
+          lazy: false,
+          create: (context) =>
+              GeocodeInteractor(geocodeRepo: context.read<IGeocodeRepo>()),
         ),
       ],
       child: child,
@@ -108,16 +99,8 @@ class _BlocProviders extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => AuthCubit(
-            authInteractor: context.read<AuthInteractor>(),
-            logger: appScope.logger,
-          )..restoreOrFetch(),
-          lazy: false,
-        ),
-        BlocProvider(
           create: (context) => SettingsCubit(
             settingsInteractor: context.read<SettingsInteractor>(),
-            themeEditorInteractor: context.read<ThemeEditorInteractor>(),
             logger: appScope.logger,
           )..restoreSettings(),
         ),

@@ -4,4 +4,4 @@ export 'app_env_type.dart';
 export 'app_providers_wrapper.dart';
 export 'env_build_presets/env_build_presets.dart';
 export 'exceptions.dart';
-export 'template_app.dart';
+export 'mrce_test_app.dart';

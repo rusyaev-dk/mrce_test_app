@@ -24,30 +24,26 @@ final class SettingsLoadedState extends SettingsState {
   const SettingsLoadedState({
     required this.locale,
     required this.themeMode,
-    required this.appTheme,
     super.failure,
   });
 
   final Locale locale;
   final ThemeMode themeMode;
-  final AppTheme appTheme;
 
   SettingsLoadedState copyWith({
     Locale? locale,
     ThemeMode? themeMode,
-    AppTheme? appTheme,
     Object? failure,
   }) {
     return SettingsLoadedState(
       locale: locale ?? this.locale,
       themeMode: themeMode ?? this.themeMode,
-      appTheme: appTheme ?? this.appTheme,
       failure: failure,
     );
   }
 
   @override
-  List<Object?> get props => <Object?>[locale, themeMode, appTheme, failure];
+  List<Object?> get props => <Object?>[locale, themeMode, failure];
 }
 
 final class SettingsFailureState extends SettingsState {

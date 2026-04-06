@@ -1,7 +1,7 @@
-import 'package:flutter_app_template/app/app.dart';
-import 'package:flutter_app_template/core/data/data.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:mrce_test_app/app/app.dart';
+import 'package:mrce_test_app/core/data/data.dart';
 
 import 'mock_flutter_secure_storage.dart';
 

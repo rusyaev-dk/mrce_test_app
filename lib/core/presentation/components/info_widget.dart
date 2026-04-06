@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_app_template/app/app.dart';
-import 'package:flutter_app_template/core/core.dart';
+import 'package:mrce_test_app/app/app.dart';
+import 'package:mrce_test_app/core/core.dart';
 
 class InfoWidget extends StatelessWidget {
   const InfoWidget({

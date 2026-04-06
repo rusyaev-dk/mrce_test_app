@@ -1,18 +1,14 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_app_template/app/app.dart';
-import 'package:flutter_app_template/core/data/data.dart';
-import 'package:flutter_app_template/core/utils/utils.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:mrce_test_app/app/app.dart';
+import 'package:mrce_test_app/core/data/data.dart';
+import 'package:mrce_test_app/core/utils/utils.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 final class AppScope {
   AppScope({
-    required this.env,
+    required this.envType,
     required this.appConfig,
     required this.apiConfig,
-    required this.sharedPreferences,
-    required this.flutterSecureStorage,
     required this.storageAggregator,
     required this.dio,
     required this.talker,
@@ -20,11 +16,9 @@ final class AppScope {
     required this.logger,
   });
 
-  final AppEnvType env;
+  final AppEnvType envType;
   final AppConfig appConfig;
   final ApiConfig apiConfig;
-  final SharedPreferences sharedPreferences;
-  final FlutterSecureStorage flutterSecureStorage;
   final StorageAggregator storageAggregator;
   final Dio dio;
   final Talker talker;

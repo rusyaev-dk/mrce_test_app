@@ -4,17 +4,16 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_app_template/app/app.dart';
-import 'package:flutter_app_template/core/data/data.dart';
-import 'package:flutter_app_template/core/presentation/navigation/router.dart';
-import 'package:flutter_app_template/core/utils/utils.dart';
-import 'package:flutter_app_template/di/di.dart';
-import 'package:flutter_app_template/features/error/error_screen.dart';
-import 'package:flutter_app_template/runners/runners.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mrce_test_app/app/app.dart';
+import 'package:mrce_test_app/core/data/data.dart';
+import 'package:mrce_test_app/core/presentation/navigation/router.dart';
+import 'package:mrce_test_app/core/utils/utils.dart';
+import 'package:mrce_test_app/di/di.dart';
+import 'package:mrce_test_app/features/error/error_screen.dart';
+import 'package:mrce_test_app/runners/runners.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger_observer.dart';
 import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
@@ -47,7 +46,7 @@ class AppRunner {
       _initErrorHandlers(logger, env);
 
       runApp(
-        TemplateApp(
+        MRCETestApp(
           initDependencies: () {
             return _initDependencies(
               logger: logger,
@@ -71,8 +70,6 @@ class AppRunner {
     } on Object catch (e, stackTrace) {
       await _onAppLoaded();
 
-      /// If an error occurs during app initialization,
-      /// start the error screen.
       runApp(
         ErrorScreen(error: e, stackTrace: stackTrace, onRetry: run, env: env),
       );
@@ -122,29 +119,22 @@ class AppRunner {
       );
     }
 
-    final sharedPrefs = await SharedPreferences.getInstance();
-    const flutterSecureStorage = FlutterSecureStorage();
-
-    final secureStorage = SecureStorage(
-      flutterSecureStorage: flutterSecureStorage,
-    );
-    final localKeyValueStorage = LocalKeyValueStorage(
-      sharedPreferences: sharedPrefs,
-    );
-    final storageAggregator = StorageAggregator(
-      secureStorage: secureStorage,
-      localKeyValueStorage: localKeyValueStorage,
-    );
-
     final apiConfig = ApiConfig(baseUrl: dotenv.env["BASE_URL"]!);
     final appConfig = AppConfig();
 
+    final hiveBoxes = await HiveStorageInitializer().init();
+
+    final StorageAggregator storageAggregator = StorageAggregator(
+      localKeyValueStorage: LocalKeyValueStorage(
+        sharedPreferences: await SharedPreferences.getInstance(),
+      ),
+      hiveBoxes: hiveBoxes,
+    );
+
     return AppScope(
-      env: env,
+      envType: env,
       appConfig: appConfig,
       apiConfig: apiConfig,
-      sharedPreferences: sharedPrefs,
-      flutterSecureStorage: flutterSecureStorage,
       storageAggregator: storageAggregator,
       talker: talker,
       routeObserver: TalkerRouteObserver(talker),

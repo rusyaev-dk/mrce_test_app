@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_template/app/app.dart';
-import 'package:flutter_app_template/gen/gen.dart';
-import 'package:flutter_app_template/uikit/uikit.dart';
+import 'package:mrce_test_app/app/app.dart';
+import 'package:mrce_test_app/gen/gen.dart';
+import 'package:mrce_test_app/uikit/uikit.dart';
 import 'package:provider/provider.dart';
 
 extension AppContextExt on BuildContext {

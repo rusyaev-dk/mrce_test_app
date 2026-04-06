@@ -1,25 +1,21 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_template/app/app.dart';
-import 'package:flutter_app_template/core/core.dart';
-import 'package:flutter_app_template/features/settings/domain/domain.dart';
-import 'package:flutter_app_template/features/theme_editor/domain/domain.dart';
+import 'package:mrce_test_app/app/app.dart';
+import 'package:mrce_test_app/core/core.dart';
+import 'package:mrce_test_app/features/settings/domain/domain.dart';
 
 part 'settings_state.dart';
 
 class SettingsCubit extends Cubit<SettingsState> {
   SettingsCubit({
     required SettingsInteractor settingsInteractor,
-    required ThemeEditorInteractor themeEditorInteractor,
     required ILogger logger,
   }) : _settingsInteractor = settingsInteractor,
-       _themeEditorInteractor = themeEditorInteractor,
        _logger = logger,
        super(const SettingsInitialState());
 
   final SettingsInteractor _settingsInteractor;
-  final ThemeEditorInteractor _themeEditorInteractor;
   final ILogger _logger;
 
   Future<void> changeLanguageCode(Locale newLocale) async {
@@ -110,14 +106,11 @@ class SettingsCubit extends Cubit<SettingsState> {
       final Locale restoredLocale = Locale(localeCode);
       final ThemeMode restoredTheme = _decodeThemeMode(themeCode);
 
-      final AppTheme appTheme = await _themeEditorInteractor
-          .loadAppTheme();
-
+      
       emit(
         SettingsLoadedState(
           locale: restoredLocale,
           themeMode: restoredTheme,
-          appTheme: appTheme,
         ),
       );
     } catch (e, st) {

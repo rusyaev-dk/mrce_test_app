@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_template/app/app.dart';
+import 'package:mrce_test_app/app/app.dart';
 
 /// A utility class for managing reusable overlay widgets in the application.
 ///

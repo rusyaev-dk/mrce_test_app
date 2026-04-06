@@ -1,4 +1,4 @@
-import 'package:flutter_app_template/features/settings/data/data.dart';
+import 'package:mrce_test_app/features/settings/data/data.dart';
 
 class SettingsInteractor {
   SettingsInteractor({

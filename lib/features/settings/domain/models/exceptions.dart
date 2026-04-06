@@ -1,4 +1,4 @@
-import 'package:flutter_app_template/core/core.dart';
+import 'package:mrce_test_app/core/core.dart';
 
 /// Base exception for all settings-related domain errors.
 abstract class AppSettingsException extends DomainException {

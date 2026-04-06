@@ -1,5 +1,6 @@
-import 'package:flutter_app_template/app/app.dart';
-import 'package:flutter_app_template/core/core.dart';
+
+import 'package:mrce_test_app/app/app.dart';
+import 'package:mrce_test_app/core/core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalKeyValueStorage implements IKeyValueStorage {

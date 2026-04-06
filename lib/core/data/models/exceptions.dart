@@ -1,4 +1,4 @@
-import 'package:flutter_app_template/app/app.dart';
+import 'package:mrce_test_app/app/app.dart';
 
 class StorageException extends AppException {
   StorageException({

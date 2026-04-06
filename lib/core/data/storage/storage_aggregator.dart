@@ -1,14 +1,11 @@
-import 'package:flutter_app_template/core/data/storage/storage.dart';
+import 'package:mrce_test_app/core/core.dart';
 
 class StorageAggregator {
   StorageAggregator({
-    required this.secureStorage,
     required this.localKeyValueStorage,
+    required this.hiveBoxes,
   });
 
-  final IKeyValueStorage secureStorage;
-  final IKeyValueStorage localKeyValueStorage;
-
-  IKeyValueStorage get secure => secureStorage;
-  IKeyValueStorage get prefs => localKeyValueStorage;
+  final LocalKeyValueStorage localKeyValueStorage;
+  final HiveBoxes hiveBoxes;
 }

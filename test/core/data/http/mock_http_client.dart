@@ -1,4 +1,4 @@
-import 'package:flutter_app_template/core/data/clients/http_client/i_http_client.dart';
+import 'package:mrce_test_app/core/data/clients/http_client/i_http_client.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockHttpClient extends Mock implements IHttpClient {}

@@ -1,10 +1,10 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_template/features/settings/domain/domain.dart';
-import 'package:flutter_app_template/features/settings/presentation/presentation.dart';
-import 'package:flutter_app_template/features/theme_editor/domain/domain.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:mrce_test_app/features/settings/domain/domain.dart';
+import 'package:mrce_test_app/features/settings/presentation/presentation.dart';
+import 'package:mrce_test_app/features/theme_editor/domain/domain.dart';
 
 import '../../../../core/utils/utils.dart';
 import '../../../theme_editor/domain/interactors/mock_theme_editor_interactor.dart';

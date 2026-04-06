@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_app_template/app/app.dart';
+import 'package:mrce_test_app/app/app.dart';
 
 class AppTextField extends StatelessWidget {
   const AppTextField({

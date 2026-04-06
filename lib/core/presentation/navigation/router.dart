@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_template/features/auth/presentation/presentation.dart';
-import 'package:flutter_app_template/features/home/presentation/presentation.dart';
-import 'package:flutter_app_template/features/root/root_screen.dart';
-import 'package:flutter_app_template/features/splash/splash_screen.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mrce_test_app/features/map/presentation/presentation.dart';
+import 'package:mrce_test_app/features/root/root_screen.dart';
+import 'package:mrce_test_app/features/splash/splash_screen.dart';
 
 class AppRouter {
   AppRouter();
@@ -13,46 +12,12 @@ class AppRouter {
   static GoRouter createRouter({
     required bool includePrefixMatches,
     required List<NavigatorObserver> navigatorObservers,
-    required AuthRouterListenable authListenable,
   }) {
     return GoRouter(
       initialLocation: '/',
       navigatorKey: rootNavigatorKey,
       debugLogDiagnostics: true,
-      refreshListenable: authListenable,
       observers: navigatorObservers,
-      redirect: (context, state) {
-        // All comments in English.
-        final AuthFlowStatus status = authListenable.status;
-        final String location = state.uri.path;
-
-        // Keep Splash while loading.
-        if (status == AuthFlowStatus.loading) {
-          return location == '/' ? null : '/';
-        }
-
-        // Route decisions after loading is done.
-        switch (status) {
-          case AuthFlowStatus.authenticated:
-            // Send any non-home location to home, except nested home children.
-            if (!location.startsWith('/home')) {
-              return '/home';
-            }
-            return null;
-
-          case AuthFlowStatus.unauthenticated:
-            // Force to registration unless already there.
-            if (location != '/registration') {
-              return '/registration';
-            }
-            return null;
-
-          case AuthFlowStatus.unknown:
-          case AuthFlowStatus.loading:
-            // handled above
-            return null;
-        }
-      },
       routes: [
         GoRoute(
           path: '/',

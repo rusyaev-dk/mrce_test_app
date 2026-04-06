@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show kIsWeb, defaultTargetPlatform;
 import 'package:flutter/material.dart';
-import 'package:flutter_app_template/app/app.dart';
+import 'package:mrce_test_app/app/app.dart';
 
 class AppAlertDialogAction extends StatelessWidget {
   const AppAlertDialogAction({

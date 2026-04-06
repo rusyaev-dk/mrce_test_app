@@ -1,6 +1,6 @@
-import 'package:flutter_app_template/app/app.dart';
-import 'package:flutter_app_template/core/core.dart';
-import 'package:flutter_app_template/features/settings/data/data.dart';
+import 'package:mrce_test_app/app/app.dart';
+import 'package:mrce_test_app/core/core.dart';
+import 'package:mrce_test_app/features/settings/data/data.dart';
 
 class LocalSettingsRepo implements ISettingsRepo {
   LocalSettingsRepo({required IKeyValueStorage storage}) : _storage = storage;

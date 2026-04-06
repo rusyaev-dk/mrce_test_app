@@ -1,5 +1,5 @@
-import 'package:flutter_app_template/app/app.dart';
-import 'package:flutter_app_template/runners/app_runner.dart';
+import 'package:mrce_test_app/app/app.dart';
+import 'package:mrce_test_app/runners/app_runner.dart';
 
 /// flutter run --dart-define=APP_ENV_TYPE=prod
 

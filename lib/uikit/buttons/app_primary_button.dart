@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_template/uikit/uikit.dart';
-
+import 'package:mrce_test_app/uikit/uikit.dart';
 
 class AppPrimaryButton extends StatelessWidget {
   const AppPrimaryButton({
@@ -82,4 +81,3 @@ class AppPrimaryButton extends StatelessWidget {
     );
   }
 }
-

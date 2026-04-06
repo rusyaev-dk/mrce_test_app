@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_template/app/app.dart';
-import 'package:flutter_app_template/core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mrce_test_app/app/app.dart';
+import 'package:mrce_test_app/core/core.dart';
 
 typedef MessageSelector<L> = String? Function(BuildContext context, L state);
 

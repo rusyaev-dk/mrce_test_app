@@ -2,15 +2,24 @@
 
 ## Скриншоты
 
-### iOS
-
-![iOS карта](screenshots/ios_map.png)
-![iOS сохраненные адреса](screenshots/ios_saved_addresses.png)
-
-### Android
-
-![Android карта](screenshots/android_map.png)
-![Android сохраненные адреса](screenshots/android_saved_addresses.png)
+<table>
+  <tr>
+    <td align="center">
+      <img src="screenshots/ios_map.png" alt="iOS карта" width="280" />
+    </td>
+    <td align="center">
+      <img src="screenshots/android_map.png" alt="Android карта" width="280" />
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="screenshots/ios_saved_addresses.png" alt="iOS сохраненные адреса" width="280" />
+    </td>
+    <td align="center">
+      <img src="screenshots/android_saved_addresses.png" alt="Android сохраненные адреса" width="280" />
+    </td>
+  </tr>
+</table>
 
 ## Архитектура приложения
 

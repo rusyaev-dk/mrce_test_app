@@ -8,12 +8,12 @@
       <img src="screenshots/ios_map.png" alt="iOS карта" width="280" />
     </td>
     <td align="center">
-      <img src="screenshots/android_map.png" alt="Android карта" width="280" />
+      <img src="screenshots/ios_saved_addresses.png" alt="iOS сохраненные адреса" width="280" />
     </td>
   </tr>
   <tr>
     <td align="center">
-      <img src="screenshots/ios_saved_addresses.png" alt="iOS сохраненные адреса" width="280" />
+      <img src="screenshots/android_map.png" alt="Android карта" width="280" />
     </td>
     <td align="center">
       <img src="screenshots/android_saved_addresses.png" alt="Android сохраненные адреса" width="280" />

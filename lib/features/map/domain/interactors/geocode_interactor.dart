@@ -32,8 +32,12 @@ class GeocodeInteractor {
     final httpResult = await _geocodeRepo.getGeocode(point);
     try {
       await _cachedGeocodeRepo.put(httpResult);
+    } on ApiException catch (e, st) {
+      _logger.exception(e, st);
+      throw GeocodeErrorMapper.mapRepoError(e, st);
     } catch (e, st) {
       _logger.exception(e, st);
+      rethrow;
     }
     return httpResult;
   }

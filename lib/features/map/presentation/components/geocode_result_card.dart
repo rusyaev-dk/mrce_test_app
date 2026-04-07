@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mrce_test_app/app/app.dart';
 import 'package:mrce_test_app/core/core.dart';
+import 'package:mrce_test_app/features/map/domain/domain.dart';
 import 'package:mrce_test_app/features/map/presentation/presentation.dart';
 import 'package:mrce_test_app/features/route_builder/presentation/presentation.dart';
 import 'package:mrce_test_app/features/saved_addresses/presentation/presentation.dart';
@@ -288,11 +289,13 @@ class _AddressStateText extends StatelessWidget {
 
   String _errorMessage(Object? failure) {
     return switch (failure) {
-      ApiValidationException() => 'Некорректный запрос геокодера',
-      ApiNotFoundException() => 'Адрес не найден',
-      ApiServerException() => 'Сервис геокодирования временно недоступен',
-      ApiTimeoutException() =>
+      MapNoInternetException() => 'Нет подключения к интернету',
+      MapTimeoutException() =>
         'Не удалось получить адрес: превышено время ожидания',
+      MapAddressNotFoundException() => 'Адрес не найден',
+      MapInvalidResponseException() => 'Геокодер вернул некорректный ответ',
+      MapServiceUnavailableException() =>
+        'Сервис геокодирования временно недоступен',
       _ => 'Не удалось определить адрес',
     };
   }

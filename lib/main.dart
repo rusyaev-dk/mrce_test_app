@@ -9,7 +9,7 @@ void main() {
   final AppEnvType env = switch (envString) {
     'dev' => AppEnvType.dev,
     'stage' => AppEnvType.stage,
-    'prod' => AppEnvType.prod,
+
     _ => throw Exception('Unknown env type: $envString'),
   };
 

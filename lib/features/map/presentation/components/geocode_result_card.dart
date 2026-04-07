@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mrce_test_app/core/data/models/models.dart';
+import 'package:mrce_test_app/app/app.dart';
+import 'package:mrce_test_app/core/core.dart';
 import 'package:mrce_test_app/features/map/presentation/presentation.dart';
-import 'package:mrce_test_app/features/route/presentation/presentation.dart';
+import 'package:mrce_test_app/features/route_builder/presentation/presentation.dart';
 import 'package:mrce_test_app/features/saved_addresses/presentation/presentation.dart';
 import 'package:mrce_test_app/uikit/uikit.dart';
 
@@ -86,7 +87,8 @@ class _GeocodeResultCardState extends State<GeocodeResultCard> {
       context: context,
       builder: (dialogContext) {
         return BlocProvider(
-          create: (_) => AddressValidatorCubit(),
+          create: (context) =>
+              AddressValidatorCubit(logger: context.read<ILogger>()),
           child: SaveAddressDialogContent(
             geocodeState: geocodeState,
             dialogContext: dialogContext,
@@ -115,13 +117,11 @@ class GeocodeResultCardContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
+        color: context.colorScheme.surface,
         borderRadius: BorderRadius.circular(isCupertino ? 14 : 12),
         border: isCupertino
             ? Border.all(
-                color: Theme.of(
-                  context,
-                ).colorScheme.outline.withValues(alpha: 0.2),
+                color: context.colorScheme.outline.withValues(alpha: 0.2),
               )
             : null,
         boxShadow: [
@@ -229,7 +229,7 @@ class _AddressStateText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final textScheme = context.textScheme;
     return switch (state) {
       GeocodeLoadingState() => Row(
         children: [
@@ -244,7 +244,7 @@ class _AddressStateText extends StatelessWidget {
               'Определяем адрес...',
               maxLines: 4,
               overflow: TextOverflow.ellipsis,
-              style: textTheme.bodyMedium,
+              style: textScheme.bodyMedium,
             ),
           ),
         ],
@@ -253,21 +253,19 @@ class _AddressStateText extends StatelessWidget {
         result.address,
         maxLines: 4,
         overflow: TextOverflow.ellipsis,
-        style: textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
+        style: textScheme.bodyMedium.copyWith(fontWeight: FontWeight.w500),
       ),
       GeocodeFailureState(:final failure) => Text(
         _errorMessage(failure),
         maxLines: 4,
         overflow: TextOverflow.ellipsis,
-        style: textTheme.bodyMedium?.copyWith(
-          color: Theme.of(context).colorScheme.error,
-        ),
+        style: textScheme.bodyMedium.copyWith(color: context.colorScheme.error),
       ),
       _ => Text(
         'Переместите карту для выбора точки',
         maxLines: 4,
         overflow: TextOverflow.ellipsis,
-        style: textTheme.bodyMedium,
+        style: textScheme.bodyMedium,
       ),
     };
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mrce_test_app/features/route/presentation/presentation.dart';
+import 'package:mrce_test_app/app/app.dart';
+import 'package:mrce_test_app/features/route_builder/presentation/presentation.dart';
 import 'package:mrce_test_app/uikit/uikit.dart';
 
 class RouteResultCard extends StatelessWidget {
@@ -35,13 +36,13 @@ class RouteResultCard extends StatelessWidget {
                 opacity: isVisible ? 1 : 0,
                 child: DecoratedBox(
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surface,
+                    color: context.colorScheme.surface,
                     borderRadius: BorderRadius.circular(isCupertino ? 14 : 12),
                     border: isCupertino
                         ? Border.all(
-                            color: Theme.of(
-                              context,
-                            ).colorScheme.outline.withValues(alpha: 0.2),
+                            color: context.colorScheme.outline.withValues(
+                              alpha: 0.2,
+                            ),
                           )
                         : null,
                     boxShadow: [
@@ -96,8 +97,8 @@ class _RouteResultContent extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    final textTheme = Theme.of(context).textTheme;
-    final primaryColor = Theme.of(context).colorScheme.primary;
+    final textScheme = context.textScheme;
+    final primaryColor = context.colorScheme.primary;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -128,7 +129,7 @@ class _RouteResultContent extends StatelessWidget {
               const SizedBox(width: 4),
               Text(
                 routeInfo.distanceText,
-                style: textTheme.titleSmall?.copyWith(
+                style: textScheme.titleSmall.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -137,7 +138,7 @@ class _RouteResultContent extends StatelessWidget {
               const SizedBox(width: 4),
               Text(
                 routeInfo.durationText,
-                style: textTheme.titleSmall?.copyWith(
+                style: textScheme.titleSmall.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -157,8 +158,8 @@ class _RouteResultContent extends StatelessWidget {
         ] else if (state is RouteBuilderFailureState) ...[
           Text(
             'Не удалось построить маршрут',
-            style: textTheme.bodyMedium?.copyWith(
-              color: Theme.of(context).colorScheme.error,
+            style: textScheme.bodyMedium.copyWith(
+              color: context.colorScheme.error,
             ),
           ),
           const SizedBox(height: 10),

@@ -2,7 +2,7 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:mrce_test_app/features/map/domain/domain.dart';
-import 'package:mrce_test_app/features/route/data/data.dart';
+import 'package:mrce_test_app/features/route_builder/data/data.dart';
 
 class DrivingRouteInfo extends Equatable {
   const DrivingRouteInfo({
@@ -19,14 +19,13 @@ class DrivingRouteInfo extends Equatable {
   final String distanceText;
   final String durationText;
 
-  factory DrivingRouteInfo.fromDto(DrivingRouteInfoDto dto) =>
-      DrivingRouteInfo(
-        polylinePoints: dto.polylinePoints.map(MapPoint.fromDto).toList(),
-        distanceMeters: dto.distanceMeters,
-        durationSeconds: dto.durationSeconds,
-        distanceText: dto.distanceText,
-        durationText: dto.durationText,
-      );
+  factory DrivingRouteInfo.fromDto(DrivingRouteInfoDto dto) => DrivingRouteInfo(
+    polylinePoints: dto.polylinePoints.map(MapPoint.fromDto).toList(),
+    distanceMeters: dto.distanceMeters,
+    durationSeconds: dto.durationSeconds,
+    distanceText: dto.distanceText,
+    durationText: dto.durationText,
+  );
 
   @override
   List<Object?> get props => [

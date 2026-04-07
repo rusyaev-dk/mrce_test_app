@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mrce_test_app/app/app.dart';
+import 'package:mrce_test_app/core/core.dart';
 import 'package:mrce_test_app/features/map/domain/domain.dart';
 import 'package:mrce_test_app/features/saved_addresses/domain/domain.dart';
 import 'package:uuid/uuid.dart';
@@ -10,10 +11,13 @@ part 'saved_addresses_state.dart';
 class SavedAddressesCubit extends Cubit<SavedAddressesState> {
   SavedAddressesCubit({
     required SavedAddressesInteractor savedAddressesInteractor,
+    required ILogger logger,
   }) : _savedAddressesInteractor = savedAddressesInteractor,
+       _logger = logger,
        super(const SavedAddressesInitialState());
 
   final SavedAddressesInteractor _savedAddressesInteractor;
+  final ILogger _logger;
 
   Future<void> getAddresses() async {
     try {
@@ -23,6 +27,7 @@ class SavedAddressesCubit extends Cubit<SavedAddressesState> {
       final addresses = await _savedAddressesInteractor.getAddresses();
       emit(SavedAddressesLoadedState(addresses: addresses));
     } catch (e, st) {
+      _logger.exception(e, st);
       emit(
         SavedAddressesFailureState(
           failure: e is AppException
@@ -48,6 +53,7 @@ class SavedAddressesCubit extends Cubit<SavedAddressesState> {
       await _savedAddressesInteractor.saveAddress(address);
       await getAddresses();
     } catch (e, st) {
+      _logger.exception(e, st);
       emit(
         SavedAddressesFailureState(
           failure: e is AppException
@@ -63,6 +69,7 @@ class SavedAddressesCubit extends Cubit<SavedAddressesState> {
       await _savedAddressesInteractor.deleteAddress(id);
       await getAddresses();
     } catch (e, st) {
+      _logger.exception(e, st);
       emit(
         SavedAddressesFailureState(
           failure: e is AppException

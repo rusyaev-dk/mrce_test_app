@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mrce_test_app/features/route/presentation/presentation.dart';
+import 'package:mrce_test_app/app/app.dart';
+import 'package:mrce_test_app/features/route_builder/presentation/presentation.dart';
 
 class AddressRow extends StatelessWidget {
   const AddressRow({
@@ -22,7 +23,7 @@ class AddressRow extends StatelessWidget {
         Expanded(
           child: Text(
             address,
-            style: Theme.of(context).textTheme.bodyMedium,
+            style: context.textScheme.bodyMedium,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),

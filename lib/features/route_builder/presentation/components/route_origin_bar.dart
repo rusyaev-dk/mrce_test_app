@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mrce_test_app/features/route/presentation/presentation.dart';
+import 'package:mrce_test_app/app/app.dart';
+import 'package:mrce_test_app/features/route_builder/presentation/presentation.dart';
 
 class RouteOriginBar extends StatelessWidget {
   const RouteOriginBar({super.key});
@@ -28,13 +29,11 @@ class RouteOriginBar extends StatelessWidget {
             opacity: isVisible ? 1 : 0,
             child: DecoratedBox(
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
+                color: context.colorScheme.surface,
                 borderRadius: BorderRadius.circular(isCupertino ? 14 : 12),
                 border: isCupertino
                     ? Border.all(
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.outline.withValues(alpha: 0.2),
+                        color: context.colorScheme.outline.withValues(alpha: 0.2),
                       )
                     : null,
                 boxShadow: [
@@ -62,7 +61,7 @@ class RouteOriginBar extends StatelessWidget {
                     Expanded(
                       child: Text(
                         isVisible ? state.origin.address : '',
-                        style: Theme.of(context).textTheme.bodyMedium,
+                        style: context.textScheme.bodyMedium,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),

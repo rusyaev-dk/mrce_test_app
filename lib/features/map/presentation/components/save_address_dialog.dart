@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mrce_test_app/app/app.dart';
 import 'package:mrce_test_app/features/map/presentation/presentation.dart';
 import 'package:mrce_test_app/features/saved_addresses/presentation/presentation.dart';
 import 'package:mrce_test_app/uikit/uikit.dart';
@@ -79,7 +80,7 @@ class _SaveAddressDialogContentState extends State<SaveAddressDialogContent> {
                 child: Text(
                   state.errorText!,
                   style: TextStyle(
-                    color: Theme.of(context).colorScheme.error,
+                    color: context.colorScheme.error,
                     fontSize: 12,
                   ),
                 ),
@@ -92,7 +93,7 @@ class _SaveAddressDialogContentState extends State<SaveAddressDialogContent> {
                 widget.geocodeState.result.address,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodySmall,
+                style: context.textScheme.bodySmall,
               ),
             ),
           ],

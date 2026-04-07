@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:mrce_test_app/app/app.dart';
 
 class ToastManager {
   static void show(
@@ -51,7 +52,7 @@ class AppToast extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final colorScheme = context.colorScheme;
 
     return Material(
       color: Colors.transparent,

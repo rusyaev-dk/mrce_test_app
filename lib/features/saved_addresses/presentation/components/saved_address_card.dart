@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:mrce_test_app/app/app.dart';
 import 'package:mrce_test_app/features/saved_addresses/domain/domain.dart';
 
 class SavedAddressCard extends StatelessWidget {
@@ -20,12 +21,12 @@ class SavedAddressCard extends StatelessWidget {
     final isCupertino =
         platform == TargetPlatform.iOS || platform == TargetPlatform.macOS;
 
-    final titleStyle = Theme.of(
-      context,
-    ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600);
-    final subtitleStyle = Theme.of(context).textTheme.bodyMedium;
-    final coordinatesStyle = Theme.of(context).textTheme.bodySmall?.copyWith(
-      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.72),
+    final titleStyle = context.textScheme.titleSmall.copyWith(
+      fontWeight: FontWeight.w600,
+    );
+    final subtitleStyle = context.textScheme.bodyMedium;
+    final coordinatesStyle = context.textScheme.bodySmall.copyWith(
+      color: context.colorScheme.onSurface.withValues(alpha: 0.72),
       fontFeatures: const [FontFeature.tabularFigures()],
     );
 
@@ -35,7 +36,7 @@ class SavedAddressCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: isCupertino
               ? CupertinoColors.systemBackground.resolveFrom(context)
-              : Theme.of(context).colorScheme.surface,
+              : context.colorScheme.surface,
           borderRadius: BorderRadius.circular(isCupertino ? 14 : 12),
           border: isCupertino
               ? Border.all(

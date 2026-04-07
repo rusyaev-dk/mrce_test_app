@@ -2,11 +2,12 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mrce_test_app/app/app.dart';
 import 'package:mrce_test_app/features/map/domain/domain.dart';
 import 'package:mrce_test_app/features/map/presentation/blocs/geocode_bloc/geocode_bloc.dart';
 import 'package:mrce_test_app/features/map/presentation/blocs/map_cubit/map_cubit.dart';
 import 'package:mrce_test_app/features/map/presentation/components/components.dart';
-import 'package:mrce_test_app/features/route/presentation/presentation.dart';
+import 'package:mrce_test_app/features/route_builder/presentation/presentation.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class MapScreen extends StatefulWidget {
@@ -91,7 +92,7 @@ class _MapScreenState extends State<MapScreen> {
                         )
                         .toList(),
                   ),
-                  strokeColor: Theme.of(context).colorScheme.primary,
+                  strokeColor: context.colorScheme.primary,
                   strokeWidth: 4,
                   outlineColor: Colors.white,
                   outlineWidth: 1,

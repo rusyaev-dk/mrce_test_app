@@ -1,20 +1,23 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:mrce_test_app/core/data/data.dart';
+import 'package:mrce_test_app/core/core.dart';
 import 'package:mrce_test_app/features/map/domain/domain.dart';
 import 'dart:async';
 
 part 'map_state.dart';
 
 class MapCubit extends Cubit<MapState> {
-  MapCubit({required IConnectivityRepo connectivityRepo})
-    : _connectivityRepo = connectivityRepo,
-      super(
-        const MapIdleState(
-          center: MapPoint(latitude: 41.2995, longitude: 69.2401),
-          isOffline: false,
-        ),
-      ) {
+  MapCubit({
+    required IConnectivityRepo connectivityRepo,
+    required ILogger logger,
+  }) : _connectivityRepo = connectivityRepo,
+       _logger = logger,
+       super(
+         const MapIdleState(
+           center: MapPoint(latitude: 41.2995, longitude: 69.2401),
+           isOffline: false,
+         ),
+       ) {
     _isOnlineSub = _connectivityRepo.watchIsOnline().listen(
       _onConnectionChanged,
     );
@@ -22,6 +25,7 @@ class MapCubit extends Cubit<MapState> {
   }
 
   final IConnectivityRepo _connectivityRepo;
+  final ILogger _logger;
   StreamSubscription<bool>? _isOnlineSub;
 
   void onCameraMove(MapPoint center) {
@@ -35,8 +39,12 @@ class MapCubit extends Cubit<MapState> {
   }
 
   Future<void> _syncInitialConnectivity() async {
-    final isOnline = await _connectivityRepo.isOnline();
-    _onConnectionChanged(isOnline);
+    try {
+      final isOnline = await _connectivityRepo.isOnline();
+      _onConnectionChanged(isOnline);
+    } catch (e, st) {
+      _logger.exception(e, st);
+    }
   }
 
   void _onConnectionChanged(bool isOnline) {

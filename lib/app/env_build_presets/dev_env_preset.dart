@@ -1,7 +1,9 @@
 import 'package:mrce_test_app/app/app.dart';
 import 'package:mrce_test_app/di/di.dart';
+import 'package:mrce_test_app/features/geocode_caching/data/data.dart';
+import 'package:mrce_test_app/features/geocode_caching/domain/domain.dart';
 import 'package:mrce_test_app/features/map/data/data.dart';
-import 'package:mrce_test_app/features/route/data/data.dart';
+import 'package:mrce_test_app/features/route_builder/data/data.dart';
 import 'package:mrce_test_app/features/saved_addresses/data/data.dart';
 
 final class DevEnvPreset implements IAppEnvPreset {
@@ -25,5 +27,13 @@ final class DevEnvPreset implements IAppEnvPreset {
   @override
   IRouteRepo createRouteRepo() {
     return MapkitRouteRepo();
+  }
+
+  @override
+  ICachedGeocodeRepo createCachedGeocodeRepo() {
+    return HiveCachedGeocodeRepo(
+      geocodeCacheBox: _appScope.storageAggregator.hiveBoxes.geocodeCacheBox,
+      cachePolicy: const GeocodeCachePolicy(),
+    );
   }
 }

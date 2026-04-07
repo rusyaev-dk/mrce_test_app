@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mrce_test_app/app/app.dart';
 import 'package:mrce_test_app/uikit/uikit.dart';
 
 class GradientButton extends StatelessWidget {
@@ -31,8 +32,8 @@ class GradientButton extends StatelessWidget {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Theme.of(context).colorScheme.primary,
-                Theme.of(context).colorScheme.primaryContainer,
+                context.colorScheme.primary,
+                context.colorScheme.primaryContainer,
               ],
               stops: const [0.65, 1.0],
               begin: Alignment.topLeft,

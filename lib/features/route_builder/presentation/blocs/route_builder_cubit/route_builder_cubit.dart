@@ -1,17 +1,22 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mrce_test_app/app/app.dart';
+import 'package:mrce_test_app/core/core.dart';
 import 'package:mrce_test_app/features/map/domain/domain.dart';
-import 'package:mrce_test_app/features/route/domain/domain.dart';
+import 'package:mrce_test_app/features/route_builder/domain/domain.dart';
 
 part 'route_builder_state.dart';
 
 class RouteBuilderCubit extends Cubit<RouteBuilderState> {
-  RouteBuilderCubit({required RouteInteractor routeInteractor})
-    : _routeInteractor = routeInteractor,
-      super(const RouteBuilderInactiveState());
+  RouteBuilderCubit({
+    required RouteInteractor routeInteractor,
+    required ILogger logger,
+  }) : _routeInteractor = routeInteractor,
+       _logger = logger,
+       super(const RouteBuilderInactiveState());
 
   final RouteInteractor _routeInteractor;
+  final ILogger _logger;
 
   void startRouteBuilding(GeocodeResult origin) {
     emit(RouteBuilderSelectingDestinationState(origin: origin));
@@ -37,6 +42,7 @@ class RouteBuilderCubit extends Cubit<RouteBuilderState> {
         ),
       );
     } catch (e, st) {
+      _logger.exception(e, st);
       emit(
         RouteBuilderFailureState(
           origin: origin,

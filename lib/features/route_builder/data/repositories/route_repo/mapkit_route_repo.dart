@@ -1,7 +1,7 @@
 import 'package:mrce_test_app/features/map/data/data.dart';
 import 'package:mrce_test_app/features/map/domain/domain.dart';
-import 'package:mrce_test_app/features/route/data/data.dart';
-import 'package:mrce_test_app/features/route/domain/domain.dart';
+import 'package:mrce_test_app/features/route_builder/data/data.dart';
+import 'package:mrce_test_app/features/route_builder/domain/domain.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class MapkitRouteRepo implements IRouteRepo {

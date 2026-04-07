@@ -6,11 +6,13 @@ import 'package:mrce_test_app/core/utils/utils.dart';
 import 'package:mrce_test_app/di/di.dart';
 import 'package:mrce_test_app/features/map/data/data.dart';
 import 'package:mrce_test_app/features/map/domain/domain.dart';
+import 'package:mrce_test_app/features/route/data/data.dart';
+import 'package:mrce_test_app/features/route/domain/domain.dart';
+import 'package:mrce_test_app/features/route/presentation/presentation.dart';
 import 'package:mrce_test_app/features/saved_addresses/data/data.dart';
 import 'package:mrce_test_app/features/saved_addresses/domain/domain.dart';
-import 'package:mrce_test_app/features/settings/data/data.dart';
-import 'package:mrce_test_app/features/settings/domain/domain.dart';
-import 'package:mrce_test_app/features/settings/presentation/presentation.dart';
+import 'package:mrce_test_app/features/saved_addresses/presentation/presentation.dart';
+import 'package:mrce_test_app/features/map/presentation/presentation.dart';
 import 'package:provider/provider.dart';
 
 class AppProvidersWrapper extends StatelessWidget {
@@ -33,6 +35,7 @@ class AppProvidersWrapper extends StatelessWidget {
       providers: [
         Provider<AppScope>(create: (context) => appScope),
         Provider<ILogger>(create: (context) => appScope.logger),
+        Provider<IConnectivityRepo>(create: (context) => ConnectivityPlusRepo()),
         Provider<IHttpClient>(
           create: (context) =>
               DioHttpClient(dio: appScope.dio, apiConfig: appScope.apiConfig),
@@ -40,14 +43,14 @@ class AppProvidersWrapper extends StatelessWidget {
       ],
       child: MultiRepositoryProvider(
         providers: [
-          RepositoryProvider<ISettingsRepo>(
-            create: (context) => envPreset.createSettingsRepo(),
-          ),
           RepositoryProvider<ISavedAddressesRepo>(
             create: (context) => envPreset.createSavedAddressesRepo(),
           ),
           RepositoryProvider<IGeocodeRepo>(
             create: (context) => envPreset.createGeocodeRepo(),
+          ),
+          RepositoryProvider<IRouteRepo>(
+            create: (context) => envPreset.createRouteRepo(),
           ),
         ],
         child: _InteractorProviders(child: _BlocProviders(child: child)),
@@ -65,11 +68,6 @@ class _InteractorProviders extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
-        RepositoryProvider<SettingsInteractor>(
-          lazy: false,
-          create: (context) =>
-              SettingsInteractor(settingsRepo: context.read<ISettingsRepo>()),
-        ),
         RepositoryProvider<SavedAddressesInteractor>(
           lazy: false,
           create: (context) => SavedAddressesInteractor(
@@ -80,6 +78,11 @@ class _InteractorProviders extends StatelessWidget {
           lazy: false,
           create: (context) =>
               GeocodeInteractor(geocodeRepo: context.read<IGeocodeRepo>()),
+        ),
+        RepositoryProvider<RouteInteractor>(
+          lazy: false,
+          create: (context) =>
+              RouteInteractor(routeRepo: context.read<IRouteRepo>()),
         ),
       ],
       child: child,
@@ -94,15 +97,26 @@ class _BlocProviders extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appScope = context.read<AppScope>();
-
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => SettingsCubit(
-            settingsInteractor: context.read<SettingsInteractor>(),
-            logger: appScope.logger,
-          )..restoreSettings(),
+          create: (context) =>
+              MapCubit(connectivityRepo: context.read<IConnectivityRepo>()),
+        ),
+        BlocProvider(
+          create: (context) => GeocodeBloc(
+            geocodeInteractor: context.read<GeocodeInteractor>(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => SavedAddressesCubit(
+            savedAddressesInteractor: context.read<SavedAddressesInteractor>(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => RouteBuilderCubit(
+            routeInteractor: context.read<RouteInteractor>(),
+          ),
         ),
       ],
       child: child,

@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart' show kIsWeb, defaultTargetPlatform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:mrce_test_app/uikit/uikit.dart';
 
@@ -25,8 +25,10 @@ class AppAlertDialog extends StatelessWidget {
     }).toList();
 
     // Do not use dart:io on web. This check is safe across all targets.
+    final platform = Theme.of(context).platform;
     final bool shouldUseCupertino =
-        !kIsWeb && defaultTargetPlatform == TargetPlatform.iOS;
+        !kIsWeb &&
+        (platform == TargetPlatform.iOS || platform == TargetPlatform.macOS);
 
     if (shouldUseCupertino) {
       return CupertinoAlertDialog(

@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart' show kIsWeb, defaultTargetPlatform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:mrce_test_app/app/app.dart';
 
@@ -18,7 +18,7 @@ class AppAlertDialogAction extends StatelessWidget {
   /// Usually [Text].
   final Widget child;
 
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   /// Only for iOS.
   final bool isDefaultAction;
@@ -32,8 +32,10 @@ class AppAlertDialogAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Safe platform check that works on all targets, including Web.
+    final platform = Theme.of(context).platform;
     final bool shouldUseCupertino =
-        !kIsWeb && defaultTargetPlatform == TargetPlatform.iOS;
+        !kIsWeb &&
+        (platform == TargetPlatform.iOS || platform == TargetPlatform.macOS);
 
     if (shouldUseCupertino) {
       return CupertinoDialogAction(

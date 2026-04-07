@@ -1,4 +1,4 @@
-import 'package:mrce_test_app/gen/gen.dart';
+import 'package:mrce_test_app/gen/assets.gen.dart';
 
 /// dart run build_runner build --delete-conflicting-outputs
 class LocaleIconRegistry {

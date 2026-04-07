@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mrce_test_app/app/app.dart';
 import 'package:mrce_test_app/core/core.dart';
 import 'package:mrce_test_app/di/di.dart';
 import 'package:mrce_test_app/features/error/error_screen.dart';
-import 'package:mrce_test_app/features/settings/presentation/presentation.dart';
 import 'package:mrce_test_app/features/splash/splash_screen.dart';
-import 'package:mrce_test_app/gen/gen.dart';
 import 'package:mrce_test_app/uikit/uikit.dart';
 
 class MRCETestApp extends StatefulWidget {
@@ -87,36 +84,20 @@ class _App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<SettingsCubit, SettingsState, (Locale, ThemeMode)>(
-      selector: (state) {
-        switch (state) {
-          case SettingsLoadedState():
-            return (state.locale, state.themeMode);
-          default:
-            return (const Locale(AppLanguages.ru), ThemeMode.system);
-        }
-      },
-      builder: (context, tuple) {
-        final (locale, themeMode) = tuple;
-        final appThemeData = AppThemeData();
-
-        return MaterialApp.router(
-          scrollBehavior: const NoGlowClampingBehavior(),
-          localizationsDelegates: const [
-            S.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          locale: locale,
-          supportedLocales: AppLanguages.toLocalesList(),
-          theme: appThemeData.getLightTheme(),
-          darkTheme: appThemeData.getDarkTheme(),
-          themeMode: themeMode,
-          debugShowCheckedModeBanner: false,
-          routerConfig: router,
-        );
-      },
+    final appThemeData = AppThemeData();
+    return MaterialApp.router(
+      scrollBehavior: const NoGlowClampingBehavior(),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      locale: const Locale(AppLanguages.ru),
+      supportedLocales: AppLanguages.toLocalesList(),
+      theme: appThemeData.getLightTheme(),
+      darkTheme: appThemeData.getDarkTheme(),
+      debugShowCheckedModeBanner: false,
+      routerConfig: router,
     );
   }
 }

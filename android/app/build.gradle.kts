@@ -5,6 +5,16 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+val localProperties = java.util.Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.inputStream().use { localProperties.load(it) }
+}
+val yandexMapKitApiKey =
+    localProperties.getProperty("YANDEX_MAPKIT_API_KEY")
+        ?: System.getenv("YANDEX_MAPKIT_API_KEY")
+        ?: ""
+
 android {
     namespace = "com.example.mrce_test_app"
     compileSdk = flutter.compileSdkVersion
@@ -28,6 +38,7 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        manifestPlaceholders["YANDEX_MAPKIT_API_KEY"] = yandexMapKitApiKey
     }
 
     buildTypes {

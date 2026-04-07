@@ -2,6 +2,9 @@ part of 'geocode_bloc.dart';
 
 sealed class GeocodeEvent extends Equatable {
   const GeocodeEvent();
+
+  @override
+  List<Object?> get props => [];
 }
 
 class RequestGeocodeEvent extends GeocodeEvent {
@@ -10,4 +13,8 @@ class RequestGeocodeEvent extends GeocodeEvent {
 
   @override
   List<Object?> get props => [point];
+}
+
+class ClearGeocodeEvent extends GeocodeEvent {
+  const ClearGeocodeEvent();
 }

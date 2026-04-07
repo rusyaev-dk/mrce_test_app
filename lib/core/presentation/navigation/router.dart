@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mrce_test_app/core/presentation/navigation/routes.dart';
 import 'package:mrce_test_app/features/map/presentation/presentation.dart';
 import 'package:mrce_test_app/features/root/root_screen.dart';
-import 'package:mrce_test_app/features/splash/splash_screen.dart';
+import 'package:mrce_test_app/features/saved_addresses/presentation/presentation.dart';
 
 class AppRouter {
   AppRouter();
@@ -14,29 +15,38 @@ class AppRouter {
     required List<NavigatorObserver> navigatorObservers,
   }) {
     return GoRouter(
-      initialLocation: '/',
+      initialLocation: AppRoutes.map,
       navigatorKey: rootNavigatorKey,
       debugLogDiagnostics: true,
       observers: navigatorObservers,
       routes: [
-        GoRoute(
-          path: '/',
-          name: 'splash',
-          builder: (context, _) => const SplashScreen(),
-        ),
-        ShellRoute(
-          pageBuilder: buildShellPageTransition((
-            BuildContext context,
-            GoRouterState state,
-            Widget child,
-          ) {
-            return RootScreen(child: child);
-          }),
-          routes: [
-            GoRoute(
-              path: '/home',
-              name: 'home',
-              builder: (context, _) => const HomeScreen(),
+        StatefulShellRoute.indexedStack(
+          pageBuilder: (context, state, navigationShell) =>
+              buildShellPageTransition((
+                BuildContext context,
+                GoRouterState state,
+                Widget child,
+              ) {
+                return RootScreen(navigationShell: navigationShell);
+              })(context, state, navigationShell),
+          branches: [
+            StatefulShellBranch(
+              routes: [
+                GoRoute(
+                  path: AppRoutes.map,
+                  name: 'map',
+                  builder: (context, _) => const MapScreen(),
+                ),
+              ],
+            ),
+            StatefulShellBranch(
+              routes: [
+                GoRoute(
+                  path: AppRoutes.savedAddresses,
+                  name: 'saved_addresses',
+                  builder: (context, _) => const SavedAddressesScreen(),
+                ),
+              ],
             ),
           ],
         ),

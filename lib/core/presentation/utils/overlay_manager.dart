@@ -42,7 +42,6 @@ final class OverlayManager {
   }) {
     final colorScheme = context.colorScheme;
     final textScheme = context.textScheme;
-    final l10n = context.l10n;
 
     return OverlayEntry(
       builder: (ctx) {
@@ -74,7 +73,7 @@ final class OverlayManager {
                   child: TextButton(
                     onPressed: onConfirm,
                     child: Text(
-                      l10n.ok,
+                      "Ок",
                       style: textScheme.label.copyWith(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,

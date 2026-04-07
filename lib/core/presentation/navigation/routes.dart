@@ -1,6 +1,5 @@
 abstract class AppRoutes {
-  static const home = "/home";
-  static const settings = "/home/settigns";
-
-  static String somePageWithArg(String arg) => "/home/somepage/$arg";
+  static const map = "/map";
+  static const savedAddresses = "/saved-addresses";
+  static const settings = "/map/settigns";
 }

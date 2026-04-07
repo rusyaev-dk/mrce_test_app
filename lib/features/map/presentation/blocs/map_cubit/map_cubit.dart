@@ -30,6 +30,7 @@ class MapCubit extends Cubit<MapState> {
 
   void onCameraMove(MapPoint center) {
     if (state.isOffline) return;
+    if (state is MapDraggingState) return;
     emit(MapDraggingState(center: center, isOffline: false));
   }
 

@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mrce_test_app/app/app.dart';
@@ -23,8 +21,8 @@ class _MapScreenState extends State<MapScreen> {
   static const _destinationMarkerId = MapObjectId('destination_marker');
 
   YandexMapController? _mapController;
-  Uint8List? _markerABytes;
-  Uint8List? _markerBBytes;
+  BitmapDescriptor? _markerADescriptor;
+  BitmapDescriptor? _markerBDescriptor;
 
   @override
   void initState() {
@@ -37,8 +35,8 @@ class _MapScreenState extends State<MapScreen> {
     final b = await RouteMarkerBitmaps.markerB;
     if (mounted) {
       setState(() {
-        _markerABytes = a;
-        _markerBBytes = b;
+        _markerADescriptor = BitmapDescriptor.fromBytes(a);
+        _markerBDescriptor = BitmapDescriptor.fromBytes(b);
       });
     }
   }
@@ -103,7 +101,7 @@ class _MapScreenState extends State<MapScreen> {
             final originPoint = routeState.originPoint;
             final destinationPoint = routeState.destinationPoint;
 
-            if (originPoint != null && _markerABytes != null) {
+            if (originPoint != null && _markerADescriptor != null) {
               mapObjects.add(
                 PlacemarkMapObject(
                   mapId: _originMarkerId,
@@ -111,7 +109,7 @@ class _MapScreenState extends State<MapScreen> {
                   opacity: 1,
                   icon: PlacemarkIcon.single(
                     PlacemarkIconStyle(
-                      image: BitmapDescriptor.fromBytes(_markerABytes!),
+                      image: _markerADescriptor!,
                       scale: 0.55,
                     ),
                   ),
@@ -120,7 +118,7 @@ class _MapScreenState extends State<MapScreen> {
               );
             }
 
-            if (destinationPoint != null && _markerBBytes != null) {
+            if (destinationPoint != null && _markerBDescriptor != null) {
               mapObjects.add(
                 PlacemarkMapObject(
                   mapId: _destinationMarkerId,
@@ -128,7 +126,7 @@ class _MapScreenState extends State<MapScreen> {
                   opacity: 1,
                   icon: PlacemarkIcon.single(
                     PlacemarkIconStyle(
-                      image: BitmapDescriptor.fromBytes(_markerBBytes!),
+                      image: _markerBDescriptor!,
                       scale: 0.55,
                     ),
                   ),

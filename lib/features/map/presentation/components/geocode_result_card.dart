@@ -48,26 +48,42 @@ class _GeocodeResultCardState extends State<GeocodeResultCard> {
                         mapState is! MapDraggingState &&
                         !routeResultVisible;
 
-                    return AnimatedSlide(
+                    return AnimatedSwitcher(
                       duration: const Duration(milliseconds: 260),
-                      curve: Curves.easeOutCubic,
-                      offset: isVisible ? Offset.zero : const Offset(0, 1.2),
-                      child: AnimatedOpacity(
-                        duration: const Duration(milliseconds: 200),
-                        opacity: isVisible ? 1 : 0,
-                        child: ConstrainedBox(
-                          constraints: BoxConstraints(maxHeight: maxCardHeight),
-                          child: GeocodeResultCardContent(
-                            isCupertino: isCupertino,
-                            geocodeState: geocodeState,
-                            routeActive: routeActive,
-                            onSavePressed: () => _openSaveAddressDialog(
-                              context,
-                              geocodeState as GeocodeLoadedState,
-                            ),
+                      switchInCurve: Curves.easeOutCubic,
+                      switchOutCurve: Curves.easeInCubic,
+                      transitionBuilder: (child, animation) {
+                        final slideAnimation = Tween<Offset>(
+                          begin: const Offset(0, 0.2),
+                          end: Offset.zero,
+                        ).animate(animation);
+                        return FadeTransition(
+                          opacity: animation,
+                          child: SlideTransition(
+                            position: slideAnimation,
+                            child: child,
                           ),
-                        ),
-                      ),
+                        );
+                      },
+                      child: isVisible
+                          ? ConstrainedBox(
+                              key: const ValueKey('visible_geocode_card'),
+                              constraints: BoxConstraints(
+                                maxHeight: maxCardHeight,
+                              ),
+                              child: GeocodeResultCardContent(
+                                isCupertino: isCupertino,
+                                geocodeState: geocodeState,
+                                routeActive: routeActive,
+                                onSavePressed: () => _openSaveAddressDialog(
+                                  context,
+                                  geocodeState as GeocodeLoadedState,
+                                ),
+                              ),
+                            )
+                          : const SizedBox.shrink(
+                              key: ValueKey('hidden_geocode_card'),
+                            ),
                     );
                   },
                 );

@@ -14,25 +14,61 @@ class CenterMarker extends StatelessWidget {
             _shouldHide(previous) != _shouldHide(current),
         builder: (context, routeState) {
           final hidden = _shouldHide(routeState);
-          return AnimatedOpacity(
+          return AnimatedSwitcher(
             duration: const Duration(milliseconds: 200),
-            opacity: hidden ? 0 : 1,
-            child: BlocBuilder<MapCubit, MapState>(
-              buildWhen: (previous, current) =>
-                  previous.runtimeType != current.runtimeType,
-              builder: (context, state) {
-                final isDragging = state is MapDraggingState;
-                return AnimatedScale(
-                  duration: const Duration(milliseconds: 160),
-                  scale: isDragging ? 1.1 : 1,
-                  child: Icon(
-                    isDragging ? Icons.place_outlined : Icons.place,
-                    size: 42,
-                    color: isDragging ? Colors.deepOrange : Colors.red,
+            switchInCurve: Curves.easeOut,
+            switchOutCurve: Curves.easeIn,
+            transitionBuilder: (child, animation) =>
+                FadeTransition(opacity: animation, child: child),
+            child: hidden
+                ? const SizedBox.shrink(key: ValueKey('hidden_marker'))
+                : BlocBuilder<MapCubit, MapState>(
+                    key: const ValueKey('visible_marker'),
+                    buildWhen: (previous, current) =>
+                        previous.runtimeType != current.runtimeType,
+                    builder: (context, state) {
+                      final isDragging = state is MapDraggingState;
+                      return AnimatedSlide(
+                        duration: const Duration(milliseconds: 180),
+                        curve: Curves.easeOutCubic,
+                        offset: isDragging
+                            ? const Offset(0, -0.08)
+                            : Offset.zero,
+                        child: AnimatedScale(
+                          duration: const Duration(milliseconds: 180),
+                          curve: Curves.easeOutBack,
+                          scale: isDragging ? 1.12 : 1,
+                          child: AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 180),
+                            switchInCurve: Curves.easeOut,
+                            switchOutCurve: Curves.easeIn,
+                            transitionBuilder: (child, animation) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: ScaleTransition(
+                                  scale: Tween<double>(
+                                    begin: 0.9,
+                                    end: 1,
+                                  ).animate(animation),
+                                  child: child,
+                                ),
+                              );
+                            },
+                            child: Icon(
+                              key: ValueKey<bool>(isDragging),
+                              isDragging
+                                  ? Icons.place_outlined
+                                  : Icons.place,
+                              size: 42,
+                              color: isDragging
+                                  ? Colors.deepOrange
+                                  : Colors.red,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
           );
         },
       ),

@@ -1,131 +1,78 @@
-# Flutter App Template
+# MRCE Test App
 
-Production-ready Flutter application template built with Clean Architecture and a modular, feature-oriented structure.
+## Скриншоты
 
----
+### iOS
 
-## Architecture
+![iOS карта](screenshots/ios_map.png)
+![iOS сохраненные адреса](screenshots/ios_saved_addresses.png)
 
-The project follows Clean Architecture with a clear separation of responsibilities:
+### Android
 
-```
-PRESENTATION
-Widgets, BLoC / Cubit
+![Android карта](screenshots/android_map.png)
+![Android сохраненные адреса](screenshots/android_saved_addresses.png)
 
-DOMAIN
-Entities, Interactors (Use Cases)
+## Архитектура приложения
 
-DATA
-Repositories, DTOs
-```
+Проект организован по слоям и фичам (feature-first + Clean Architecture подход):
 
-- Interactors (use cases) are located in the `domain` layer  
-- All state management logic lives in the `presentation` layer  
-- Strict dependency direction between layers
+- `data`:
+  - `freezed`-модели (DTO/модели данных);
+  - репозитории и их реализации;
+  - источники данных (API/локальное хранилище).
+- `domain`:
+  - доменные модели;
+  - `interactors` (use cases) с бизнес-логикой.
+- `presentation`:
+  - `blocs/cubits` для управления состоянием;
+  - `screens` для экранов;
+  - `components` для переиспользуемых UI-частей.
 
----
+Базовый принцип зависимостей: `presentation -> domain -> data`.
 
-## Key Features
+## Инструкция по запуску
 
-- Modular, feature-based project structure
-- Environment support (dev / stage / prod)
-- Declarative navigation using `go_router`
-- State management with `flutter_bloc` and `bloc_concurrency`
-- Localization support (`intl`, `flutter_localizations`)
-- Secure and shared storage
-- Centralized logging with Talker
-- Provider-based dependency injection
-- Mobile and Web support
+### 1) Требования
 
----
+- Flutter SDK `>=3.38.0 <3.39.0`
+- Dart SDK `^3.9.2`
+- Настроенные Android Studio / Xcode (в зависимости от платформы)
 
-## Tech Stack
-
-### State & Architecture
-- flutter_bloc / bloc  
-- equatable  
-- provider  
-
-### Networking & Storage
-- dio  
-- shared_preferences  
-- flutter_secure_storage  
-
-### Routing
-- go_router  
-
-### UI & Assets
-- flutter_svg  
-- lottie  
-- flutter_animate  
-- cached_network_image  
-- google_maps_flutter  
-
-### Configuration & Tooling
-- flutter_dotenv  
-- uuid  
-- talker_flutter  
-- talker_dio_logger  
-- talker_bloc_logger  
-
-### Code Generation & Testing
-- build_runner  
-- flutter_gen  
-- intl_utils  
-- bloc_test  
-- mocktail  
-
----
-
-## Getting Started
-
-Install dependencies and generate code:
+### 2) Установка зависимостей
 
 ```bash
 flutter pub get
+```
+
+### 3) Генерация кода (Freezed/JSON и др.)
+
+```bash
 dart run build_runner build --delete-conflicting-outputs
 ```
 
-Run the application by environment:
+### 4) Подготовка переменных окружения и ключей
+
+Скопируйте пример и заполните значения:
 
 ```bash
-flutter run --target lib/targets/dev.dart
-flutter run --target lib/targets/stage.dart
-flutter run --target lib/targets/prod.dart
+cp env/.env.example env/dev.env
+cp env/.env.example env/stage.env
+cp env/.env.example env/prod.env
 ```
 
----
+Приложение использует `APP_ENV_TYPE` и файлы окружения в `env/`:
+- `env/dev.env`
+- `env/stage.env`
+- `env/prod.env`
 
-## Environments
+Для карт нужно прокинуть `YANDEX_MAPKIT_API_KEY` для обеих платформ:
+- **Android**: укажите ключ в `android/gradle.properties` (переменная `YANDEX_MAPKIT_API_KEY`).
+- **iOS**: укажите ключ в настройках сборки Xcode (`Build Settings`/`.xcconfig`) как `YANDEX_MAPKIT_API_KEY`, он используется в `ios/Runner/Info.plist`.
 
-Environment configuration files are stored in the `env/` directory:
+### 5) Запуск приложения
 
-- `.env.dev`
-- `.env.stage`
-- `.env.prod`
-
-They are loaded using `flutter_dotenv`.
-
----
-
-## Localization & Assets
+Запуск для `dev`:
 
 ```bash
-flutter gen-l10n
-flutter pub run flutter_gen
+flutter run --dart-define=APP_ENV_TYPE=dev
 ```
-
----
-
-## Debug & Logging
-
-- Built-in debug screen
-- Environment, theme, and locale switching
-- HTTP, Bloc, and application logs
-- Talker used as a centralized logging solution
-
----
-
-## License
-
-MIT License

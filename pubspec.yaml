@@ -38,6 +38,7 @@ dependencies:
   talker_flutter: 5.1.9
   provider: ^6.1.5+1
   connectivity_plus: ^6.1.4
+  cupertino_icons: ^1.0.9
 
 dev_dependencies:
   flutter_test:
